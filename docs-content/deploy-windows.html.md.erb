@@ -1,0 +1,86 @@
+---
+title: Deploying BOSH Release for Windows 
+owner: Greenhouse
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to deploy the BOSH Release for Windows to install Windows cells on your Pivotal Cloud Foundry (PCF) deployment.
+
+## <a id='reqs'></a> Requirements
+
+You must have the following to deploy the BOSH Release for Windows:
+
+* PCF 1.8 or later deployed to Amazon Web Services (AWS) or vSphere
+* If your PCF deployment runs on vSphere, you must build your own stemcell by following the steps in the [Building a Windows Stemcell](build-stemcell.html) topic before performing the procedures below
+
+<p class="note"><strong>Note</strong>: Once your Windows cell is running, you must disable FIPS as a Group Policy setting. Otherwise, Garden Windows doesn't work.</p>
+
+## <a id="prepare"></a> Step 1: Prepare to Deploy
+
+1. Download all of the BOSH Release for Windows files from [Pivotal Network](http://network.pivotal.io) and place them in a single directory. 
+
+1. Prepare to SCP onto your Ops Manager VM.
+    * For AWS, perform the following steps:
+        1. Locate the Ops Manager VM’s FQDN on the AWS Console’s EC2 instances page.
+        1. Locate the `ops_mgr.pem` private key file you used when installing Ops Manager, and ensure that you have added it to your list of private keys with the following command:
+	<pre class="terminal">
+	$ ssh-add ops_mgr.pem
+	</pre>
+    * For vSphere, perform the following steps:
+        1. Locate the Ops Manager VM’s FQDN through vCenter.
+        1. Locate the credentials you used to import the PCF `.ova` or `.ovf` file into your virtualization system.
+
+## <a id="deploy"></a> Step 2: Deploy BOSH Release for Windows
+
+1. Change into the directory where you placed the downloaded BOSH Release for Windows files:
+    <pre class="terminal">
+    $ cd ~/bosh-windows
+    </pre>
+
+2.  Secure copy `garden-windows-0.x.tgz`, `generate_manifest.rb`, and your stemcell file to your Ops Manager VM as `ubuntu@OPS-MANAGER-FQDN`. 
+    <p class="note"><strong>Note</strong>: If you are on AWS, use the stemcell included in the BOSH Release for Windows. If you are on vSphere, use the stemcell you built in the <a href="build-stemcell.html">Building a Windows Stemcell</a> topic.</p> 
+
+    The following example uses an AWS stemcell:
+    <pre class="terminal">
+    $ scp garden-windows-0.0.6.tgz generate\_manifest.rb 
+    light-bosh-stemcell-0.0.46-aws-xen-hvm-windows2012R2-go\_agent.tgz 
+    ubuntu<span>@</span>pcf.example.com:~
+    </pre>
+    
+    If you are using vSphere, enter the password that you set during the .ova deployment into vCenter when prompted. 
+
+3. Follow the steps in the [Log into BOSH](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the Advanced Troubleshooting with the BOSH CLI topic to target and log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
+
+4. After you have successfully logged in to your BOSH Director, upload the Windows stemcell to BOSH:
+
+    <pre class="terminal">
+    $ bosh upload stemcell YOUR-WINDOWS-STEMCELL.tgz
+    </pre>
+
+5. Download the manifest of your PCF deployment: 
+    <pre class="terminal">
+    $ bosh download manifest YOUR-PCF-DEPLOYMENT YOUR-PCF-MANIFEST.yml
+    </pre>
+    <p class="note"><strong>Note</strong>: You must know the name of your PCF deployment to download the manifest. To retrieve it, run <code>bosh deployments</code> 
+    to list your deployments and locate the name of your PCF deployment.</p>
+
+6. Use the manifest generation script included in the BOSH Release for Windows to generate a manifest for your deployment. You must specify either 
+`vsphere` or `aws` depending on your IaaS. The following example uses AWS:
+
+    <pre class="terminal">
+    $ ./generate-manifest YOUR-PCF-MANIFEST.yml aws > garden-windows.yml
+   </pre>
+
+7. Upload the Garden Windows release to BOSH:
+    <pre class="terminal">
+    $ bosh upload release garden-windows-y-x.tgz 
+    </pre>
+
+8. Deploy Garden Windows:
+    <pre class="terminal">
+    $ bosh -d garden-windows.yml deploy
+    </pre>
+
+
+

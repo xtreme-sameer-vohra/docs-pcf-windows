@@ -1,0 +1,42 @@
+---
+title: Using Windows Cells (BETA)
+owner: Diego
+---
+
+<strong><%= modified_date %></strong>
+
+This documentation describes how operators install and manage Windows [cells](http://docs.pivotal.io/concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF), and how developers push .NET apps to Windows cells. 
+
+<p class="note"><strong>Note</strong>: You must have PCF 1.8 or later deployed on Amazon Web Services (AWS) or vSphere to install Windows cells.</p>
+
+## <a id='overview'></a>Overview
+
+Operators who want to run Windows cells in PCF in order to enable developers to push .NET apps can deploy the BOSH Release for Windows. The BOSH Release for Windows creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows cell built from a Windows stemcell.
+
+Once the Windows cell is running, developers can specify a Windows stack when pushing .NET apps from the command line. PCF passes the app to the Windows cell in the Garden Windows BOSH deployment. The diagram below illustrates the process.
+
+<%= image_tag('windows-overview.png') %>
+
+For more information about how Windows cells work in PCF, see the <a href="understand-windows.html" class="subnav">Understanding Windows Cells</a> topic.
+
+## <a id='install'></a>Installing Windows Cells ##
+
+* <a href="./deploy-windows.html" class="subnav">Deploying the BOSH Release for Windows</a>
+
+* <a href="./build-stemcell.html" class="subnav">Building a Windows Stemcell</a>
+
+## <a id="managing"></a>Managing Windows Cells
+
+* <a href="./upgrade-windows.html" class="subnav">Upgrading Windows Cells</a>
+
+* <a href="./windows-rotate-creds.html" class="subnav">Rotating Credentials in Garden Windows</a>
+
+* <a href="./windows-troubleshooting.html" class="subnav">Troubleshooting Windows Cells</a>
+
+## <a id='dev'></a>Developing on Windows Cells
+
+* <a href="push-windows-apps.html" class="subnav">Deploying .NET Apps to Windows Cells</a>
+
+
+
+

@@ -1,0 +1,62 @@
+---
+title: Deploying .NET Apps to Windows Cells 
+owner: Greenhouse
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to push .NET apps to Windows cells. 
+
+After operators have deployed the BOSH Release for Windows to install a Windows cell on their Pivotal Cloud Foundry (PCF) deployment, developers can push .NET apps to the Windows cell. Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted). 
+
+For information on how operators install and manage Windows cells, see the [Installing and Managing Windows Cells](../opsguide/windows.html) topic.
+
+##<a id='push'></a> Push a .NET App
+
+By default, PCF serves .NET apps with Hostable Web Core, which is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
+
+Perform the following steps to push a .NET app to a Windows cell:
+
+1. Target the Cloud Controller of your PCF deployment:
+	<pre class="terminal">
+	$ cf api api.YOUR-SYSTEM-DOMAIN
+	</pre>
+
+1. Push your .NET app, replacing `APP-NAME` with the name of your app:
+
+	<pre class="terminal">
+	$ cf push APP-NAME -s windows2012R2 -b binary_buildpack
+	</pre>
+
+	Push your app from a directory containing either a `.exe` binary or a valid `Web.config` file for .NET apps. Alternatively, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the `.exe` or `Web.config` file.<br><br>
+
+	You specify the stack as `windows2012R2` to instruct PCF to run the app in the Windows cell. You specify the buildpack as `binary_buildpack` to expedite the staging process, because the binary buildpack is lightweight. Garden Windows does not use the binary buildpack to stage your app. 
+
+1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
+
+##<a id='self-hosted'></a> Push a Self-Hosted App
+
+Developers can choose to push a self-hosted app instead of using Hostable Web Core. Self-hosted apps combine the server code with the app code. 
+
+Perform the following steps to push a self-hosted app:
+
+1. Target the Cloud Controller of your PCF deployment:
+	<pre class="terminal">
+	$ cf api api.YOUR-SYSTEM-DOMAIN
+	</pre>
+
+1. Push your .NET app from the app root, replacing `APP-NAME` with the name of your app and `PATH-TO-BINARY` with the path to your executable.
+
+	<pre class="terminal">
+	$ cf push APP-NAME -s windows2012R2 -b binary_buildpack -c PATH-TO-BINARY
+	</pre>
+
+1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
+
+##<a id='troubleshoot'></a> Troubleshoot App Errors
+
+If a .NET app fails to start, consult the following list of errors and their possible solutions:
+
+* `NoCompatibleCell`: Your PCF deployment cannot connect to your Windows cell. Operators should see the [Troubleshooting Windows Cells](windows-troubleshooting.html) topic for information about how to troubleshoot their Windows cell configuration.
+
+* `Start unsuccessful`: Your app may not contain the required DLL files and dependencies. Ensure that you are pushing from a directory containing your app dependencies, or specifying the directory with the `-p` flag. Your app also may be misconfigured. Ensure that your app directory contains either a valid `.exe` binary or a valid `Web.config` file. 
