@@ -19,7 +19,7 @@ Perform the following steps to update the stemcell for your Windows cells:
 	* If your deployment runs on AWS, download the new stemcell from the latest BOSH Release for Windows on [Pivotal Network](http://network.pivotal.io).
 	* If your deployment runs on vSphere, ensure that you have followed the procedures in the [Building a Windows Stemcell](build-stemcell.html) topic to create a Concourse pipeline for building stemcells. Navigate to your Concourse pipeline in a browser and kick off a build by selecting **create-stemcell** and clicking the plus sign in the upper right. Concourse uses the newest version of the Windows Server 2012 operating system to build a new stemcell. After several hours, the stemcell appears in the bucket you created in your S3-compatible blobstore.
 
-1. Follow the steps in the [Log into BOSH](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the Advanced Troubleshooting with the BOSH CLI topic to target and log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
+1. Follow the steps in the [Log into BOSH](../customizing/trouble-advanced.html#log-in) section of the Advanced Troubleshooting with the BOSH CLI topic to target and log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 
 1. After you have successfully logged in to your BOSH Director, upload the new stemcell to BOSH:
 
@@ -63,7 +63,7 @@ Perform the following steps to update the Garden Windows release:
 
 1. Download the new Garden Windows release tarball from the latest BOSH Release for Windows on [Pivotal Network](http://network.pivotal.io).
 
-1. Follow the steps in the [Log into BOSH](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the Advanced Troubleshooting with the BOSH CLI topic to target and log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
+1. Follow the steps in the [Log into BOSH](../customizing/trouble-advanced.html#log-in) section of the Advanced Troubleshooting with the BOSH CLI topic to target and log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 
 1. If necessary, download the manifest of your `garden-windows` deployment: 
     <pre class="terminal">
