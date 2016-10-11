@@ -13,6 +13,19 @@ App instances in PCF run inside containers. [Garden](http://docs.pivotal/io/pivo
 
 By deploying the [BOSH Release for Windows](deploy-windows.html), operators create a Windows [cell](http://docs.pivotal/io/pivotalcf/concepts/architecture/index.html#diego-cell) from a [stemcell](https://bosh.io/docs/stemcell.html) that contains the Windows Server 2012 operating system. Because Windows does not natively support Linux-style containers, Garden Windows uses an open-source library called IronFrame to implement containerization on Windows. IronFrame uses features of the Windows kernel to isolate resources that would otherwise be shared, creating containers comparable to those that exist on Linux.
 
+A Windows cell includes the following components:
+
+* Garden Windows: Implements the [Garden](http://docs.pivotal/io/pivotalcf/concepts/diego/diego-architecture.html#garden) API on Windows
+* Containerizer: Creates and manages Windows containers, using the IronFrame library
+* [Metron Agent](../concepts/diego/diego-architecture.html#metron-agent): Forwards app logs, errors, and metrics to the [Loggregator](../loggregator/architecture.html) system
+* [BOSH Agent](https://bosh.io/docs/bosh-components.html#agent): Executes instructions from the BOSH Director
+* [Consul Client](../concepts/diego/diego-architecture.html#consul): Registers the cell as a service in a Consul cluster
+* [Cell Rep](../concepts/diego/diego-architecture.html#rep): Runs and manages [Tasks and Long Running Processes](../concepts/diego/diego-auction.html#processes)
+
+The following diagram illustrates the architecture of a Windows cell:
+
+<%= image_tag('windows-cell.png') %>
+
 Garden Windows achieves container isolation in the following ways:
 
 * [Filesystem Isolation](#filesystem)
