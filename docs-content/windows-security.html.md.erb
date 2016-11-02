@@ -1,0 +1,42 @@
+---
+title: Understanding Stemcell Security 
+owner: Greenhouse
+---
+
+<strong><%= modified_date %></strong>
+
+This topic provides a description of the security measures that Pivotal uses to harden the Windows stemcell.
+
+##<a id="group-policy-list"></a>List of Local Group Policy Objects
+
+The Windows stemcell contains a version of Windows Server 2012 R2 currently has the following Local Group Policy settings. Pivotal will continue to revise these settings as Microsoft releases updates. 
+
+* **NTLMv2 Refuse LM & NTLM 2**: Most secure
+* **Allow LocalSystem NULL Session Fallback**: Disabled/False
+* **Allow LocalSystem to user computer identity for NTLM (Used in DomainJoin)**: Enabled 
+	<p class="note"><strong>Note</strong>: If this setting is disabled, every service that is run under LocalSystem will use an anonymous identity to authenticate.</p>
+* **Minimum session security for NTLM SSP based servers**: Require 128bit enryption and NTLMv2
+* **Server  SPN target name (Used in DomainJoin)**: Leave undefined
+* **Minimum session security for NTLM SSP based clients**: Require 128bit enryption and NTLMv2
+* **Number of logons to cache**: Leave the baseline
+* **System Cryptography**: Force strong Key Protection for user keys (leave the baseline)
+* **Digitally Sign Communication**: Leave the baseline)
+* **Network Access**: Remotely Accessible registry paths (Remove all or leave the baseline)
+* **Shutdown**: Allow system to be shutdown (Leave the baseline)
+* **Turn off Windows Update device driver searching**: Enabled
+* **Access this computer from the network**: Administrators only
+* **Deny log on as a batch job**: Guests, CF-Users 
+* **Deny log on as a service**: Guests, CF-Users
+* **Replace Process level token**: Leave the baseline and check `setup.ps1`
+* **Deny log on through Remote Desktop Services**: Guests
+* **Impersonate a client after authentication**: Remove `IIS_IUSRS`
+* **Bypass traverse checking**: Leave the baseline
+* **Firewall (Public/Private/Domain) Display Notification**: No
+* **Network Access: Do not allow storage of passwords and credentials for networks Auth**: Enabled
+* **Allow Remote Shell Access**: Disabled
+* **UAC: Admin Approval Mode for Built-In Admin Account** :Enable 
+* **Interactive Logon CTRL+ALT+DEL**: Disabled
+* **Turn Off Store Application**: Disabled
+
+<p class="note"><strong>Note</strong>: As a result of the stemcell security measures, applications may stop unexpectedly due to an error with the User Account and Authentication (UAA) server.</p>
+
