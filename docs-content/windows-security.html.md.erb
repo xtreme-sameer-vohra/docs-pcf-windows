@@ -7,36 +7,59 @@ owner: Greenhouse
 
 This topic provides a description of the security measures that Pivotal uses to harden the Windows stemcell.
 
-##<a id="group-policy-list"></a>List of Local Group Policy Objects
+##<a id="group-policy-list"></a>Local Group Policy Settings
 
-The Windows stemcell contains a version of Windows Server 2012 R2 currently has the following Local Group Policy settings. Pivotal will continue to revise these settings as Microsoft releases updates. 
+The Windows stemcell contains a version of Windows Server 2012 R2 with a set of Local Group Policy settings optimized for security. These settings begin with the WS2012R2 Member Server Security Compliance v1.0 baseline, included in Microsoft Security Compliance Manager v4.0. For more information about this baseline, see the [Microsoft Security Guidance blog](https://blogs.technet.microsoft.com/secguide/2014/08/13/security-baselines-for-windows-8-1-windows-server-2012-r2-and-internet-explorer-11-final/). 
 
-* **NTLMv2 Refuse LM & NTLM 2**: Most secure
-* **Allow LocalSystem NULL Session Fallback**: Disabled/False
-* **Allow LocalSystem to user computer identity for NTLM (Used in DomainJoin)**: Enabled 
-	<p class="note"><strong>Note</strong>: If this setting is disabled, every service that is run under LocalSystem will use an anonymous identity to authenticate.</p>
-* **Minimum session security for NTLM SSP based servers**: Require 128bit enryption and NTLMv2
-* **Server  SPN target name (Used in DomainJoin)**: Leave undefined
-* **Minimum session security for NTLM SSP based clients**: Require 128bit enryption and NTLMv2
-* **Number of logons to cache**: Leave the baseline
-* **System Cryptography**: Force strong Key Protection for user keys (leave the baseline)
-* **Digitally Sign Communication**: Leave the baseline)
-* **Network Access**: Remotely Accessible registry paths (Remove all or leave the baseline)
-* **Shutdown**: Allow system to be shutdown (Leave the baseline)
-* **Turn off Windows Update device driver searching**: Enabled
-* **Access this computer from the network**: Administrators only
-* **Deny log on as a batch job**: Guests, CF-Users 
-* **Deny log on as a service**: Guests, CF-Users
-* **Replace Process level token**: Leave the baseline and check `setup.ps1`
-* **Deny log on through Remote Desktop Services**: Guests
-* **Impersonate a client after authentication**: Remove `IIS_IUSRS`
-* **Bypass traverse checking**: Leave the baseline
-* **Firewall (Public/Private/Domain) Display Notification**: No
-* **Network Access: Do not allow storage of passwords and credentials for networks Auth**: Enabled
-* **Allow Remote Shell Access**: Disabled
-* **UAC: Admin Approval Mode for Built-In Admin Account** :Enable 
-* **Interactive Logon CTRL+ALT+DEL**: Disabled
-* **Turn Off Store Application**: Disabled
+Pivotal has changed certain Local Group Policy settings in the baseline in order to further harden the stemcell. The table below lists the non-baseline settings in the stemcell. 
+
+<p class="note"><strong>Note</strong>: Pivotal will continue to revise these settings as Microsoft releases updates.</p> 
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Setting</th>
+	</tr>
+	<tr>
+		<td>Turn off Automatic Download and Install of updates</td>
+		<td>Enabled</td>
+	</tr>
+	<tr>
+		<td>Allow Remote Shell Access</td>
+		<td>Disabled</td>
+	</tr>
+	<tr>
+		<td>Windows Firewall: Private: Display a notification</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Windows Firewall: Domain: Display a notification</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Windows Firewall: Public: Display a notification</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Network access: Do not allow storage of passwords and credentials for network auth</td>
+		<td>Enabled</td>
+	</tr>
+	<tr>
+		<td>Access this computer from the network</td>
+		<td>Administrators</td>
+	</tr>
+	<tr>
+		<td>Deny log on as a batch job</td>
+		<td>Guests, Vcap</td>
+	</tr>
+	<tr>
+		<td>Deny log on as a service</td>
+		<td>Guests, Vcap</td>
+	</tr>
+	<tr>
+		<td>Deny log on through Remote Desktop Services</td>
+		<td>Guests</td>
+</table>
 
 <p class="note"><strong>Note</strong>: As a result of the stemcell security measures, applications may stop unexpectedly due to an error with the User Account and Authentication (UAA) server.</p>
 
