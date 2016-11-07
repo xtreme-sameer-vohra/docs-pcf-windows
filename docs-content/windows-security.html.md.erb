@@ -11,7 +11,7 @@ This topic provides a description of the security measures that Pivotal uses to 
 
 The Windows stemcell contains a version of Windows Server 2012 R2 with a set of Local Group Policy settings optimized for security. These settings begin with the WS2012R2 Member Server Security Compliance v1.0 baseline, included in Microsoft Security Compliance Manager v4.0. For more information about this baseline, see the [Microsoft Security Guidance blog](https://blogs.technet.microsoft.com/secguide/2014/08/13/security-baselines-for-windows-8-1-windows-server-2012-r2-and-internet-explorer-11-final/). 
 
-Pivotal has changed certain Local Group Policy settings in the baseline in order to further harden the stemcell. The table below lists the non-baseline settings in the stemcell. 
+Pivotal has collaborated with Microsoft to further harden the stemcell by overriding certain Local Group Policy settings in the baseline. The table below lists these overrides.
 
 <p class="note"><strong>Note</strong>: Pivotal will continue to revise these settings as Microsoft releases updates.</p> 
 
@@ -60,6 +60,3 @@ Pivotal has changed certain Local Group Policy settings in the baseline in order
 		<td>Deny log on through Remote Desktop Services</td>
 		<td>Guests</td>
 </table>
-
-<p class="note"><strong>Note</strong>: As a result of the stemcell security measures, applications may stop unexpectedly due to an error with the User Account and Authentication (UAA) server.</p>
-
