@@ -28,7 +28,7 @@ Perform the following steps to push a .NET app to a Windows cell:
 
 	Push your app from a directory containing either a `.exe` binary or a valid `Web.config` file for .NET apps. Alternatively, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the `.exe` or `Web.config` file.<br><br>
 
-	The push command includes the following flags:
+	The push command must include the following flags:
 	* You specify the stack as `windows2012R2` to instruct PCF to run the app in the Windows cell. 
 	* You specify the buildpack as `binary_buildpack` to expedite the staging process, because the binary buildpack is lightweight. Garden Windows does not use the binary buildpack to stage your app. 
 
@@ -62,20 +62,20 @@ Developers can push Simple Object Access Protocol (SOAP) web services to their P
 Perform the following steps to deploy a SOAP web service:
 
 1. Develop the service as an ASMX web service in Microsoft Visual Studio.
-1. Publish the service to your local file system as a `.asmx` file.
-1. Push your service, replacing `SERVICE-NAME` with the name of your service:
-
+1. Publish the service to your local file system.
+1. Push your service from the directory containing the published web service, replacing `SERVICE-NAME` with the name of your service:
 	<pre class="terminal">
 	$ cf push SERVICE-NAME -s windows2012R2 -b binary_buildpack -u none
 	</pre>
-
-	Push your service from the directory containing the published web service.
-	Alternatively, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the published web service.<br><br>
-
-	The push command includes the following flags:
+	<br>
+	The push command must include the following flags:
 	* You specify the stack as `windows2012R2` to instruct PCF to run the app in the Windows cell. 
 	* You specify the buildpack as `binary_buildpack` to expedite the staging process, because the binary buildpack is lightweight. Garden Windows does not use the binary buildpack to stage your app. 
-	* You specify `-u none` to disable the healthcheck, which will fail if enabled.
+	<br><br>
+	The push command can include the following optional flags:
+	* If you are not push your service from the directory containing the published web service, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the published web service. 
+	* If you do not have a route serving `/`, add the `-u none` flag to disable the health check.
+	<br><br>
 
 1. If the push command is successful, locate the portion of the output that displays the URL of the web service:
 
