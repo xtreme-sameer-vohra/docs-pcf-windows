@@ -21,6 +21,8 @@ You must have the following to deploy the BOSH Release for Windows:
 
 ## <a id="prepare"></a> Step 1: Prepare to Deploy
 
+1. Ensure that you created a service network during your Ops Manager installation. A service network specifies a CIDR range within which Ops Manager does not provision VMs. You create a service network by selecting a checkbox in the **Create Networks** section of Ops Manager. See your IaaS-specific topic for configuring Ops Manager under [Installing Pivotal Cloud Foundry](../installing/index.html) for more information.
+
 1. Download all of the BOSH Release for Windows files from [Pivotal Network](http://network.pivotal.io) and place them in a single directory. 
 
 1. Prepare to SCP onto your Ops Manager VM.
@@ -76,6 +78,8 @@ You must have the following to deploy the BOSH Release for Windows:
     <pre class="terminal">
     $ ./generate-manifest YOUR-PCF-MANIFEST.yml aws > garden-windows.yml
    </pre>
+
+1. Modify the generated manifest to replace the network name with the name of your [service network](#prepare).
 
 7. Upload the Garden Windows release to BOSH:
     <pre class="terminal">
