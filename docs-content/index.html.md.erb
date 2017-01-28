@@ -1,36 +1,34 @@
 ---
-title: Using Windows Cells (BETA)
+title: Using PCF Runtime for Windows
 owner: Diego
 ---
 
 <strong><%= modified_date %></strong>
 
-<p class="note"><strong>Note</strong>: The procedures in this documentation are deprecated in Pivotal Cloud Foundry (PCF) 1.9.</p>
-
-This documentation describes how operators install and manage Windows [cells](../concepts/architecture/index.html#diego-cell) in PCF, and how developers push .NET apps to Windows cells. 
-
-<p class="note"><strong>Note</strong>: You must have PCF 1.8 or later deployed on Amazon Web Services (AWS) or vSphere to install Windows cells.</p>
+This documentation describes how operators install and manage Windows [cells](../concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF), and how developers push .NET apps to Windows cells. 
 
 ## <a id='overview'></a>Overview
 
-Operators who want to run Windows cells in PCF in order to enable developers to push .NET apps can deploy the BOSH Release for Windows. The BOSH Release for Windows creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows cell built from a Windows stemcell.
+Operators who want to run Windows cells in PCF in order to enable developers to push .NET apps can deploy the Pivotal Cloud Foundry (PCF) Runtime for Windows tile. 
+
+Deploying this tile creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows cell built from a Windows stemcell.
 
 Once the Windows cell is running, developers can specify a Windows stack when pushing .NET apps from the command line. PCF passes the app to the Windows cell in the Garden Windows BOSH deployment. The diagram below illustrates the process.
 
 <%= image_tag('windows-overview.png') %>
 
-## <a id='understand'></a>Understanding BOSH Windows ##
+## <a id='understand'></a>Understanding PCF Runtime for Windows ##
 
 * <a href="understand-windows.html" class="subnav">Understanding Windows Cells</a>
 
 * <a href="windows-security.html" class="subnav">Understanding Stemcell Security</a>
 
-## <a id='install'></a>Installing Windows Cells ##
+## <a id='install'></a>Installing PCF Runtime for Windows ##
 
 * <a href="./build-stemcell.html" class="subnav">Building a Windows Stemcell</a>
 	<p class="note"><strong>Note</strong>: The procedures in Building a Windows Stemcell are only required for vSphere deployments. If you are using Amazon Web Services (AWS), skip this topic and proceed directly to <a href="deploy-windows.html">Deploying the BOSH Release for Windows</a>.</p>
 </p>
-* <a href="./deploy-windows.html" class="subnav">Deploying the BOSH Release for Windows</a>
+* <a href="./deploy-windows.html" class="subnav">Deploying PCF Runtime for Windows</a>
 
 ## <a id="managing"></a>Managing Windows Cells
 
