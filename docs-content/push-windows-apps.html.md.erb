@@ -26,7 +26,7 @@ Perform the following steps to push a .NET app to a Windows cell:
 1. Push your .NET app, replacing `APP-NAME` with the name of your app:
 
 	<pre class="terminal">
-	$ cf push APP-NAME -s windows2012R2 -b binary_buildpack
+	$ cf push APP-NAME -s windows2012R2 -b hwc-buildpack
 	</pre>
 
 	Push your app from a directory containing either a `.exe` binary or a valid `Web.config` file for .NET apps. Alternatively, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the `.exe` or `Web.config` file.<br><br>
