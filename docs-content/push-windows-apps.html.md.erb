@@ -7,11 +7,14 @@ owner: Greenhouse
 
 This topic describes how to push .NET apps to Windows cells. 
 
-After operators have [deployed](deploy-windows.html) the BOSH Release for Windows to install a Windows cell on their Pivotal Cloud Foundry (PCF) deployment, developers can push .NET apps to the Windows cell. Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted). 
+## <a id='reqs'></a> Requirements
+After operators have installed and configured the Pivotal Cloud Foundry (PCF) Runtime for Windows v1.10 tile, developers can push .NET apps to the Windows cell. [LINK TO deploy-windows.html.md.erb] Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted). 
+
+Operators must also install the Cloud Foundry Commland Line Interface [LINK TO CF CLI] in order to perform the forthcoming cf push commands.
 
 ##<a id='push'></a> Push a .NET App
 
-By default, PCF serves .NET apps with Hostable Web Core, which is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
+By default, PCF serves .NET apps with Hostable Web Core (HWC), which is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
 
 Perform the following steps to push a .NET app to a Windows cell:
 
@@ -29,8 +32,8 @@ Perform the following steps to push a .NET app to a Windows cell:
 	Push your app from a directory containing either a `.exe` binary or a valid `Web.config` file for .NET apps. Alternatively, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the `.exe` or `Web.config` file.<br><br>
 
 	The push command must include the following flags:
-	* You specify the stack as `windows2012R2` to instruct PCF to run the app in the Windows cell. 
-	* You specify the buildpack as `binary_buildpack` to expedite the staging process, because the binary buildpack is lightweight. Garden Windows does not use the binary buildpack to stage your app. 
+	* `windows2012R2` to instruct PCF to run the app in the Windows cell. 
+	* `binary_buildpack` to expedite the staging process, SINCE the binary buildpack is lightweight. Garden Windows does not use the binary buildpack to stage your app. 
 
 1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
 
