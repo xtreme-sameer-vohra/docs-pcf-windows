@@ -1,0 +1,35 @@
+---
+title: Migrating from Diego Windows 
+owner: Greenhouse
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to migrate applications and Windows cells from Diego Windows to Pivotal Cloud Foundry (PCF) Runtime for Windows.
+
+##<a id='reqs'></a> Requirements
+
+You must be using Diego Windows on PCF 1.9.x to perform the migration to PCF Runtime for Windows.
+
+Customers who are using Diego Windows on PCF 1.6.x, 1.7.x, and 1.8.x must upgrade to PCF 1.9.x before performing the migration.
+
+##<a id='trigger-evacuation'></a> Trigger Evacuation
+
+You must trigger an evacuation to ensure your users are not affected by application downtime. Execute the following PowerShell script from your Windows cell:
+
+```
+Set-Service RepService -startuptype "Disabled"
+
+Invoke-WebRequest -Uri http://localhost:1800/evacuate -Method Post
+
+while ($true) {
+    try {
+        Get-WebRequest "http://localhost:1800/ping"
+    } catch {
+        [system.exception]
+        break;
+    }
+}
+```
+
+After all instances evacuate, you can shut down your Windows cell.
