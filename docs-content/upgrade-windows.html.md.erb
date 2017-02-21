@@ -7,40 +7,44 @@ owner: Greenhouse
 
 This topic describes how to upgrade the PCF for Windows tile and the Windows stemcell.
 
+<p class="note"><strong>Note</strong>:  For customers who are using the BOSH Release for Windows, there is no migration path. To upgrade, those customers must destroy their deployment of Windows cells with the BOSH CLI and then do a fresh install of the Windows tile.</p>
+
 ##<a id='upgrade-tile'></a> Upgrade the PCF for Windows tile
+
+<p class="note"><strong>Note</strong>: For customers who are using Diego Windows (in either PCF 1.7 or 1.8), follow the procedures in the [Migrating from Diego Windows](msi-crossgrade.html.md.erb) topic to upgrade the Windows tile.</p>
 
 The latest versions of your existing products will appear in your **Installation Dashboard**. Upgrade your product to the latest version by following these instructions.
 
-1. Login to PCF Ops Manager.
+1. Login to **Ops Manager**.
 
-1. Locate and download the product version you want to upgrade to by clicking on the green download icon.
-    <%= image_tag ("existing_upgrade.png") %>
+1. Locate and download the product version you want to upgrade to by clicking on the green download icon on the left-hand side of the screen.
 
-1. When the download is complete, refresh the page to use the product.
+1. When the download is complete, click **Apply Changes**.
 
-1. If necessary, configure the product.
+1. If necessary, configure the product. For more information on configuring PCF Runtime for Windows, see [Deploying PCF Runtime for Windows](http://docs.pivotal.io/pivotalcf/windows/deploy-windows.html)
 
-1. In the Pending Changes view, click **Apply Changes**.
-
-[deploy-windows]
+1. Locate the Pending Changes section on the right-hand side of the screen and click **Apply Changes**.
 
 
 ##<a id='upgrade-stemcell'></a> Upgrade the Windows Stemcell
 
 1. Login to PCF Ops Manager. 
 
-1. Download Stemcell 1011.0 windows2012R2 from Pivotal Network. [LINK] 
-
-pcf-windows-tile-stemcell.png
+1. Retrieve the stemcell by following the steps below for your IaaS.
+    * For vSphere, you must build your own stemcell. See the [Building a Windows Stemcell](build-stemcell.html) topic for more information.
+    * For AWS, navigate to the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
+    * For GCP and Azure, stemcells will be available soon on Pivotal Network.
 
 1. Click the "PCF Runtime for Windows" tile. 
 
-1. Within the "Settings" tab, click Stemcell on the left-hand navigation.
+1. Within the "Settings" tab, click **Stemcell** on the left-hand navigation.
 
 1. Click **Import Stemcell**
 
-1. Select the previously downloaded "Stemcell 1011.0 windows2012R2" and click **Open** 
+1. Select the previously acquired Stemcell and click **Open** 
 
-1. Click **Installation Dashboard** to navigate back to the main Ops Manager Page. 
+1. Click **Installation Dashboard** to navigate back to the main **Ops Manager** page. 
 
 1. Click *Apply Changes**
+
+

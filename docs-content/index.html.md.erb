@@ -33,6 +33,9 @@ Once the Windows cell is running, developers can specify a Windows stack when pu
 ## <a id="managing"></a>Managing Windows Cells
 
 * <a href="./upgrade-windows.html" class="subnav">Upgrading Windows Cells</a>
+	<p class="note"><strong>Note</strong>:  For customers who are using the BOSH Release for Windows, there is no migration path. To upgrade, those customers must destroy their deployment of Windows cells with the BOSH CLI and then do a fresh install of the Windows tile.</p>
+
+	<p class="note"><strong>Note</strong>: For customers who are using Diego Windows (in either PCF 1.7 or 1.8), follow the procedures in the [Migrating from Diego Windows](msi-crossgrade.html.md.erb) topic to upgrade the Windows tile.</p>
 
 * <a href="./windows-rotate-creds.html" class="subnav">Rotating Credentials in Garden Windows</a>
 
