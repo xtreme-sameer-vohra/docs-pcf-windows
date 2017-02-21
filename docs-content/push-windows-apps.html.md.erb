@@ -8,9 +8,9 @@ owner: Greenhouse
 This topic describes how to push .NET apps to Windows cells. 
 
 ## <a id='reqs'></a> Requirements
-After operators have installed and configured the Pivotal Cloud Foundry (PCF) Runtime for Windows v1.10 tile, developers can push .NET apps to the Windows cell. [LINK TO deploy-windows.html.md.erb] Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted). 
+After operators have installed and configured the Pivotal Cloud Foundry (PCF) Runtime for Windows v1.10 tile, developers can push .NET apps to the Windows cell. For documentation on installing the PCF Runtime for Windows tile, see [here](deploy-windows.html.md.erb). Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted). 
 
-Operators must also install the Cloud Foundry Commland Line Interface [LINK TO CF CLI] in order to perform the forthcoming cf push commands.
+Operators must also install the Cloud Foundry Commland Line Interface (CLI) in order to perform the forthcoming cf push commands. For documentaion on installing the Cloud Foundry CLI, see [Installing the cf CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
 ##<a id='push'></a> Push a .NET App
 
@@ -24,7 +24,12 @@ Perform the following steps to push a .NET app to a Windows cell:
 	</pre>
 
 1. Push your .NET app, replacing `APP-NAME` with the name of your app:
-
+	1. If you are using <code>bat</code> and <code>.exe</code> files to upgrade use the following command:
+	
+	<pre class="terminal">
+	$ cf push -s windows2012R2 -b binary_buildpack 
+	</pre>	
+	1. If you are not using <code>bat</code> and <code>.exe</code> files to upgrade use the following command:
 	<pre class="terminal">
 	$ cf push APP-NAME -s windows2012R2 -b hwc-buildpack
 	</pre>
@@ -33,7 +38,7 @@ Perform the following steps to push a .NET app to a Windows cell:
 
 	The push command must include the following flags:
 	* `windows2012R2` to instruct PCF to run the app in the Windows cell. 
-	* `binary_buildpack` to expedite the staging process, SINCE the binary buildpack is lightweight. Garden Windows does not use the binary buildpack to stage your app. 
+	* `hwc-buildpack` or `binary_buildpack` to expedite the staging process, SINCE the buildpack is lightweight.
 
 1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
 
@@ -48,10 +53,10 @@ Perform the following steps to push a self-hosted app:
 	$ cf api api.YOUR-SYSTEM-DOMAIN
 	</pre>
 
-1. Push your .NET app from the app root, replacing `APP-NAME` with the name of your app and `PATH-TO-BINARY` with the path to your executable.
+1. Push your .NET app from the app root, replacing `APP-NAME` with the name of your app and `PATH-TO-BUILDPACK` with the path to your executable.
 
 	<pre class="terminal">
-	$ cf push APP-NAME -s windows2012R2 -b binary_buildpack -c PATH-TO-BINARY
+	$ cf push APP-NAME -s windows2012R2 -b hwc-buildpack -c PATH-TO-BUILDPACK
 	</pre>
 
 1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
@@ -68,12 +73,12 @@ Perform the following steps to deploy a SOAP web service:
 1. Publish the service to your local file system.
 1. Push your service from the directory containing the published web service, replacing `SERVICE-NAME` with the name of your service:
 	<pre class="terminal">
-	$ cf push SERVICE-NAME -s windows2012R2 -b binary_buildpack -u none
+	$ cf push SERVICE-NAME -s windows2012R2 -b hwc-buildpack -u none
 	</pre>
 	<br>
 	The push command must include the following flags:
 	* You specify the stack as `windows2012R2` to instruct PCF to run the app in the Windows cell. 
-	* You specify the buildpack as `binary_buildpack` to expedite the staging process, because the binary buildpack is lightweight. Garden Windows does not use the binary buildpack to stage your app. 
+	* You specify the buildpack as `hwc-buildpack` to expedite the staging process, because the  buildpack is lightweight.
 	<br><br>
 	The push command can include the following optional flags:
 	* If you are not pushing your service from the directory containing the published web service, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the published web service. 
@@ -89,7 +94,7 @@ Perform the following steps to deploy a SOAP web service:
 	urls: YOUR-WEB-SERVICE.YOUR-DOMAIN
 	last uploaded: Thu Nov 17 19:18:19 UTC 2016
 	stack: windows2012R2
-	buildpack: binary_buildpack
+	buildpack: hwc-buildpack
 	```
 
 ###<a id='correct-wsdl'></a> Step 2: Modify the WSDL File
