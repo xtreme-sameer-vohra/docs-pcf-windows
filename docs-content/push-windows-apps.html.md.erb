@@ -23,22 +23,23 @@ Perform the following steps to push a .NET app to a Windows cell:
 	$ cf api api.YOUR-SYSTEM-DOMAIN
 	</pre>
 
-1. Push your .NET app, replacing `APP-NAME` with the name of your app:
-	1. If you are using <code>bat</code> and <code>.exe</code> files to upgrade use the following command:
+1. Push your .NET app, replacing `APP-NAME` with the name of your app, choose one of the following depending on the app you're pushing:
+	* If you are pushing an application with <code>bat</code> or <code>.exe</code> files, use the following command:
 	
 	<pre class="terminal">
 	$ cf push -s windows2012R2 -b binary_buildpack 
 	</pre>	
-	1. If you are not using <code>bat</code> and <code>.exe</code> files to upgrade use the following command:
+
+	* If you are not pushing an application with <code>bat</code> or <code>.exe</code> files, use the following command:
 	<pre class="terminal">
 	$ cf push APP-NAME -s windows2012R2 -b hwc-buildpack
 	</pre>
 
-	Push your app from a directory containing either a `.exe` binary or a valid `Web.config` file for .NET apps. Alternatively, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the `.exe` or `Web.config` file.<br><br>
+	Add the `-p` flag to your `cf push` command and specify the path to the directory that contains your app.<br><br>
 
-	The push command must include the following flags:
+	The push command must include the following flag:
 	* `windows2012R2` to instruct PCF to run the app in the Windows cell. 
-	* `hwc-buildpack` or `binary_buildpack` to expedite the staging process, SINCE the buildpack is lightweight.
+	
 
 1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
 
@@ -78,7 +79,6 @@ Perform the following steps to deploy a SOAP web service:
 	<br>
 	The push command must include the following flags:
 	* You specify the stack as `windows2012R2` to instruct PCF to run the app in the Windows cell. 
-	* You specify the buildpack as `hwc-buildpack` to expedite the staging process, because the  buildpack is lightweight.
 	<br><br>
 	The push command can include the following optional flags:
 	* If you are not pushing your service from the directory containing the published web service, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the published web service. 
