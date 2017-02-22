@@ -10,7 +10,7 @@ This topic describes how to push .NET apps to Windows cells.
 ## <a id='reqs'></a> Requirements
 After operators have installed and configured the Pivotal Cloud Foundry (PCF) Runtime for Windows v1.10 tile, developers can push .NET apps to the Windows cell. For documentation on installing the PCF Runtime for Windows tile, see [here](deploy-windows.html.md.erb). Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted). 
 
-Operators must also install the Cloud Foundry Commland Line Interface (CLI) in order to perform the forthcoming cf push commands. For documentaion on installing the Cloud Foundry CLI, see [Installing the cf CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
+Operators must also install the Cloud Foundry Command Line Interface (CLI) in order to perform the forthcoming cf push commands. For documentation on installing the Cloud Foundry CLI, see [Installing the cf CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
 ##<a id='push'></a> Push a .NET App
 
@@ -54,10 +54,10 @@ Perform the following steps to push a self-hosted app:
 	$ cf api api.YOUR-SYSTEM-DOMAIN
 	</pre>
 
-1. Push your .NET app from the app root, replacing `APP-NAME` with the name of your app and `PATH-TO-BUILDPACK` with the path to your executable.
+1. Push your .NET app from the app root, replacing `APP-NAME` with the name of your app and `PATH-TO-BINARY` with the path to your executable.
 
 	<pre class="terminal">
-	$ cf push APP-NAME -s windows2012R2 -b hwc-buildpack -c PATH-TO-BUILDPACK
+	$ cf push APP-NAME -s windows2012R2 -b hwc-buildpack -c PATH-TO-BINARY
 	</pre>
 
 1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
