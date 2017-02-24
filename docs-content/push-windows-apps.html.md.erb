@@ -32,7 +32,7 @@ Perform the following steps to push a .NET app to a Windows cell:
 
 	* If you are not pushing an application with <code>bat</code> or <code>.exe</code> files, use the following command:
 	<pre class="terminal">
-	$ cf push APP-NAME -s windows2012R2 -b hwc-buildpack
+	$ cf push APP-NAME -s windows2012R2 -b hwc_buildpack
 	</pre>
 
 	Add the `-p` flag to your `cf push` command and specify the path to the directory that contains your app.<br><br>
@@ -57,7 +57,7 @@ Perform the following steps to push a self-hosted app:
 1. Push your .NET app from the app root, replacing `APP-NAME` with the name of your app and `PATH-TO-BINARY` with the path to your executable.
 
 	<pre class="terminal">
-	$ cf push APP-NAME -s windows2012R2 -b hwc-buildpack -c PATH-TO-BINARY
+	$ cf push APP-NAME -s windows2012R2 -b binary_buildpack -c PATH-TO-BINARY
 	</pre>
 
 1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
@@ -74,7 +74,7 @@ Perform the following steps to deploy a SOAP web service:
 1. Publish the service to your local file system.
 1. Push your service from the directory containing the published web service, replacing `SERVICE-NAME` with the name of your service:
 	<pre class="terminal">
-	$ cf push SERVICE-NAME -s windows2012R2 -b hwc-buildpack -u none
+	$ cf push SERVICE-NAME -s windows2012R2 -b hwc_buildpack -u none
 	</pre>
 	<br>
 	The push command must include the following flags:
@@ -94,7 +94,7 @@ Perform the following steps to deploy a SOAP web service:
 	urls: YOUR-WEB-SERVICE.YOUR-DOMAIN
 	last uploaded: Thu Nov 17 19:18:19 UTC 2016
 	stack: windows2012R2
-	buildpack: hwc-buildpack
+	buildpack: hwc_buildpack
 	```
 
 ###<a id='correct-wsdl'></a> Step 2: Modify the WSDL File
