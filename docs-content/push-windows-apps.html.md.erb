@@ -7,10 +7,11 @@ owner: Greenhouse
 
 This topic describes how to push .NET apps to Windows cells. 
 
-## <a id='reqs'></a> Requirements
-After operators have installed and configured the Pivotal Cloud Foundry (PCF) Runtime for Windows v1.10 tile, developers can push .NET apps to the Windows cell. For documentation on installing the PCF Runtime for Windows tile, see [here](deploy-windows.html.md.erb). Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted). 
+## <a id='overview'></a> Overview
 
-Operators must also install the Cloud Foundry Command Line Interface (CLI) in order to perform the forthcoming cf push commands. For documentation on installing the Cloud Foundry CLI, see [Installing the cf CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
+After operators have installed and configured the Pivotal Cloud Foundry (PCF) Runtime for Windows v1.10 tile, developers can push .NET apps to the Windows cell. For documentation on installing the PCF Runtime for Windows tile, see the [Deploying PCF Runtime for Windows](deploy-windows.html) topic. Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted). 
+
+Operators must also install the Cloud Foundry Command Line Interface (CLI) in order to perform the forthcoming cf push commands. For documentation on installing the Cloud Foundry CLI, see [Installing the cf CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html).
 
 ##<a id='push'></a> Push a .NET App
 
@@ -24,22 +25,14 @@ Perform the following steps to push a .NET app to a Windows cell:
 	</pre>
 
 1. Push your .NET app, replacing `APP-NAME` with the name of your app, choose one of the following depending on the app you're pushing:
+	<br><br>
 	* If you are pushing an application with <code>bat</code> or <code>.exe</code> files, use the following command:
-	
-	<pre class="terminal">
-	$ cf push -s windows2012R2 -b binary_buildpack 
-	</pre>	
-
+		<pre class="terminal">$ cf push -s windows2012R2 -b binary_buildpack</pre>	
 	* If you are not pushing an application with <code>bat</code> or <code>.exe</code> files, use the following command:
-	<pre class="terminal">
-	$ cf push APP-NAME -s windows2012R2 -b hwc_buildpack
-	</pre>
+		<pre class="terminal">$ cf push APP-NAME -s windows2012R2 -b hwc_buildpack</pre>
 
-	Add the `-p` flag to your `cf push` command and specify the path to the directory that contains your app.<br><br>
-
-	The push command must include the following flag:
-	* `windows2012R2` to instruct PCF to run the app in the Windows cell. 
-	
+	By passing `windows2012R2` with the `-s` flag, you instruct PCF to run the app in the Windows cell.
+	If you are not pushing your app from its directory, add the -p flag to specify the path to the directory that contains the app. 
 
 1. Wait for your app to stage and start. If an error occurs, see the [Troubleshoot App Errors](#troubleshoot) section.
 
@@ -77,8 +70,7 @@ Perform the following steps to deploy a SOAP web service:
 	$ cf push SERVICE-NAME -s windows2012R2 -b hwc_buildpack -u none
 	</pre>
 	<br>
-	The push command must include the following flags:
-	* You specify the stack as `windows2012R2` to instruct PCF to run the app in the Windows cell. 
+	The push command must include the `-s` flag to specify the stack as `windows2012R2`, which instructs PCF to run the app in the Windows cell. 
 	<br><br>
 	The push command can include the following optional flags:
 	* If you are not pushing your service from the directory containing the published web service, add the `-p` flag to your `cf push` command and specify the path to the directory that contains the published web service. 
