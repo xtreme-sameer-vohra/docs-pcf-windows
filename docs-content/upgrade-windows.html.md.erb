@@ -30,7 +30,9 @@ The latest versions of your existing products will appear in the Ops Manager Ins
 
 If you have upgraded from PCF for Windows 1.9 to PCF for Windows 1.10 and have apps to upgrade from 1.9 to 1.10, there will be a momentary downtime of your apps unless you complete a [Blue-Green Deployment](https://docs.cloudfoundry.org/devguide/deploy-apps/blue-green.html). 
 
-If you are upgrading a .NET app with a <code>Web.config</code> that was previously pushed with the <code>binary\_buildback</code>, then you need to re-  push with the <code>hwc\_buildpack</code>, if you're relying on the <code>WebAppServer.exe</code> provided by the Windows App Lifecycle. You will need to re-push using <code>cf push</code>. Your app will fail to restage if you try to <code>cf-restage</code>because you cannot change the app's buildpack to the <code>hwc\_buildpack</code> via <code>cf-restage</code>. An app with the <code>hwc\_buildpack</code>, should not be pushed with the <code>-c</code> tag. A .NET app with a <code>Web.config</code> does not have to specify <code>-b</code>, since auto detection should work.
+If you are upgrading a .NET app with a <code>Web.config</code> that was previously pushed with the <code>binary\_buildback</code>, then you need to re-  push with the <code>hwc\_buildpack</code>, assuming that you're relying on the <code>WebAppServer.exe</code> provided by the Windows App Lifecycle. 
+
+You will need to re-push using <code>cf push</code>. Your app will fail to restage if you try to <code>cf-restage</code>because you cannot change the app's buildpack to the <code>hwc\_buildpack</code> via <code>cf restage</code>. An app with the <code>hwc\_buildpack</code>, should not be pushed with the <code>-c</code> tag. A .NET app with a <code>Web.config</code> does not have to specify <code>-b</code>, since auto detection should work.
 
 A Binary app should continue to use the <code>-c</code> flag. Apps that need custom start commands and require the <code>WebAppServer.exe</code> should have their start commands updated to reflect the path to <code>hwc.exe</code> provided by the HWC buildpack.
 
