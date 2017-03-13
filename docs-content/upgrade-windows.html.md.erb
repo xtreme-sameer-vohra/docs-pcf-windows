@@ -51,9 +51,28 @@ The latest versions of your existing products will appear in the Ops Manager Ins
 
 If you have upgraded from PCF for Windows 1.9 to PCF for Windows 1.10 and have apps to upgrade from 1.9 to 1.10, there will be a momentary downtime of your apps unless you complete a [Blue-Green Deployment](https://docs.cloudfoundry.org/devguide/deploy-apps/blue-green.html). 
 
-If you are upgrading a .NET app with a <code>Web.config</code> that was previously pushed with the <code>binary\_buildback</code> and are relying on the <code>WebAppServer.exe</code> provided by the Windows App Lifecycle, then you need to re-push with the <code>hwc\_buildpack</code> by using <code>cf push</code>. If you try to <code>cf restage</code>, your app will fail to restage because you cannot switch to the <code>hwc\_buildpack</code> via <code>cf restage</code>.
+If your .NET app was previously pushed with the binary\_buildback and you are relying on the <code>WebAppServer.exe</code> you must:
 
-An app with the <code>hwc\_buildpack</code>, should not be pushed with the <code>-c</code> flag. A .NET app with a <code>Web.config</code> does not have to specify the <code>-b</code> flag, since it will be automatically detected.
+* Push with the <code>hwc\_buildpack</code>
 
-A Binary app should continue to use the <code>-c</code> flag. Apps that need custom start commands and require the <code>WebAppServer.exe</code> should have their start commands updated to reflect the path to <code>hwc.exe</code>, which is provided by the HWC buildpack.
+	<pre class="terminal">$ cf push APP-NAME -s windows2012R2 -b hwc_buildpack</pre>
+
+	By passing `windows2012R2` with the `-s` flag, you instruct PCF to run the app in the Windows cell.
+	If you are not pushing your app from its directory, add the `-p` flag to specify the path to the directory that contains the app. 
+
+	An app with the <code>hwc\_buildpack</code> should not be pushed with the <code>-c</code> flag.
+
+If you try to <code>cf restage</code>, your app will fail to restage because you cannot switch to the <code>hwc\_buildpack</code> via <code>cf restage</code>.
+
+If you have a binary app you must:
+
+* Push with the <code>-c</code> flag.
+
+	<pre class="terminal">
+	$ cf push APP-NAME -s windows2012R2 binary_buildpack -c PATH-TO-BINARY
+	</pre>
+
+ 	A .NET app with a <code>Web.config</code> does not have to specify the <code>-b</code> flag.
+
+ Apps that need custom start commands and require the <code>WebAppServer.exe</code> should have their start commands updated to reflect the path to <code>hwc.exe</code>, which is provided by the HWC buildpack.
 
