@@ -9,9 +9,7 @@ This topic describes how to install and configure the Pivotal Cloud Foundry (PCF
 
 ## <a id='reqs'></a> Requirements
 
-To install the PCF Runtime for Windows v1.9 tile, you must have Ops Manager 1.9.2 or later and Elastic Runtime 1.9.0 or later deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.
-
-<p class="note"><strong>Note</strong>: Windows stemcells for GCP and Azure are not yet available on Pivotal Network, but are coming soon.</p>
+To install the PCF Runtime for Windows v1.9 tile, you must have Ops Manager 1.9.2 or later and Elastic Runtime 1.9.0 or later deployed to vSphere.
 
 ## <a id='ert'></a> Step 1: Confirm Elastic Runtime Settings
 
@@ -42,11 +40,8 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
 
 	<%= image_tag('pcf-windows-tile-stemcell.png') %>
 
-1. Retrieve the stemcell by following the steps below for your IaaS.
-    * For vSphere, you must build your own stemcell. For additional help, contact [Pivotal Support](https://support.pivotal.io/).
-    * For AWS, navigate to the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
-    * For GCP and Azure, stemcells will be available soon on Pivotal Network.
-
+1. Build your own vSphere stemcell. For additional help, contact [Pivotal Support](https://support.pivotal.io/).
+    
 1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install the PCF Runtime for Windows tile.
