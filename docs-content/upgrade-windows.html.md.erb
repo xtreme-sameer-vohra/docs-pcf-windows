@@ -9,7 +9,7 @@ This topic describes how to upgrade the PCF Runtime for Windows tile and update 
 
 If you are currently using Windows cells deployed by the BOSH Release for Windows or Diego Windows, consult the list below:
 
-* For customers who are using the BOSH Release for Windows, there is no migration path. To upgrade, you must destroy your deployment of Windows cells with the BOSH CLI and then perform a fresh install of the PCF Runtime for Windows tile.
+* For customers who are using the BOSH Release for Windows, install the PCF Runtime for Windows tile, then destroy your original deployment of Windows cells with the BOSH CLI. The workloads will evacuate the old deployment and migrate to the tile deployment in an automated fashion.
 * For customers who are using Diego Windows, follow the procedures in the <a href="msi-crossgrade.html">Migrating from Diego Windows</a> topic to migrate your applications to Windows cells deployed by the tile.
 
 ##<a id='upgrade-tile'></a> Upgrade PCF Runtime for Windows
