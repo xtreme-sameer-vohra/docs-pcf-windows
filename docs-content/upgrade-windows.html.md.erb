@@ -1,5 +1,5 @@
 ---
-title: Upgrading Windows Cells 
+title: Upgrading Windows Cells
 owner: Greenhouse
 ---
 
@@ -7,11 +7,7 @@ owner: Greenhouse
 
 This topic describes how to upgrade the PCF Runtime for Windows tile and update the Windows stemcell.
 
-<p class="note"><strong>Note</strong>: For customers who are using the BOSH Release for Windows, there is no migration path. To upgrade, those customers must destroy their deployment of Windows cells with the BOSH CLI and then do a fresh install of the PCF Runtime for Windows tile.</p>
-
 ##<a id='upgrade-tile'></a> Upgrade PCF Runtime for Windows
-
-<p class="note"><strong>Note</strong>: For customers who are using Diego Windows, follow the procedures in the <a href="msi-crossgrade.html">Migrating from Diego Windows</a> topic to migrate your apps to Windows cells deployed by the tile.</p>
 
 The latest versions of your existing products will appear in your **Installation Dashboard**. Upgrade your product to the latest version by following these instructions.
 
@@ -25,16 +21,37 @@ The latest versions of your existing products will appear in your **Installation
 
 1. Locate the **Pending Changes** section on the right-hand side of the screen and click **Apply Changes**.
 
+##<a id='upgrade-tile-notes'></a> Notes about Upgrading
+
+### For a given app ...
+
+If your app is a .NET app and has a `Web.config` then you need to push with the HWC buildpack if you're relying on the `WebAppServer.exe` provided by the Windows App Lifecycle. This `WebAppServer.exe` will be removed in a future version of Pivotal Cloud Foundry.
+
+You need to repush your app with `cf push`. The app will fail to restage if you try to `cf restage` because you cannot change the app's buildpack to HWC buildpack.
+
+### About the `-c` flag
+
+If you previously pushed an app with the `-c` flag, and it is an app that needs the HWC buildpack, then you should stop using the `-c` flag. If it is a binary app, then continue to use it.
+
+Apps that need custom start commands and require the `WebAppServer.exe` should have their start commands updated to reflect the path to `hwc.exe` provided by the HWC buildpack.
+
+### Other Notes
+
+There will be momentary downtime unless you do a blue/green deploy.
+
+You don't strictly need to specify `-b` if you are pushing a .NET app with a Web.config, auto detect should work, but it is recommended, as staging occurs faster.
+
+`cf restart` will work for all apps (no new droplet is created so old apps are not changed).
+
 ##<a id='upgrade-stemcell'></a> Upgrade the Windows Stemcell
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
 1. Retrieve the stemcell by following the steps below for your IaaS.
-    * For vSphere, you must build your own stemcell. See the [Building a Windows Stemcell](build-stemcell.html) topic for more information.
-    * For AWS, navigate to the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
-    * For GCP and Azure, stemcells will be available soon on Pivotal Network.
+    * For vSphere, you must build your own stemcell.
+    * For AWS, GCP, and Azure, navigate to the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
 
-1. Click the **PCF Runtime for Windows** tile. 
+1. Click the **PCF Runtime for Windows** tile.
 
 1. Within the **Settings** tab, click **Stemcell** on the left-hand navigation.
 
@@ -42,8 +59,6 @@ The latest versions of your existing products will appear in your **Installation
 
 1. Select the previously acquired Stemcell and click **Open**.
 
-1. Click **Installation Dashboard** to navigate back to the Ops Manager Installation Dashboard. 
+1. Click **Installation Dashboard** to navigate back to the Ops Manager Installation Dashboard.
 
 1. Click *Apply Changes**.
-
-

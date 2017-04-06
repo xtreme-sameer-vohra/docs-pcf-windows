@@ -5,11 +5,11 @@ owner: Diego
 
 <strong><%= modified_date %></strong>
 
-This documentation describes how operators install and manage Windows [cells](../concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF), and how developers push .NET apps to Windows cells. 
+This documentation describes how operators install and manage Windows [cells](../concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF), and how developers push .NET apps to Windows cells.
 
 ## <a id='overview'></a>Overview
 
-Operators who want to run Windows cells in PCF in order to enable developers to push .NET apps can deploy the Pivotal Cloud Foundry (PCF) Runtime for Windows tile. 
+Operators who want to run Windows cells in PCF in order to enable developers to push .NET apps can deploy the Pivotal Cloud Foundry (PCF) Runtime for Windows tile.
 
 Deploying this tile creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows cell built from a Windows stemcell.
 
@@ -25,18 +25,9 @@ Once the Windows cell is running, developers can specify a Windows stack when pu
 
 ## <a id='install'></a>Installing PCF Runtime for Windows ##
 
-* <a href="./build-stemcell.html" class="subnav">Building a Windows Stemcell</a>
-	<p class="note"><strong>Note</strong>: The procedures in Building a Windows Stemcell are only required for vSphere deployments. If you are using Amazon Web Services (AWS), skip this topic and proceed directly to <a href="deploy-windows.html">Deploying the BOSH Release for Windows</a>.</p>
-</p>
 * <a href="./deploy-windows.html" class="subnav">Deploying PCF Runtime for Windows</a>
-* <a href="./msi-crossgrade.html" class="subnav">Migrating from Diego Windows</a>
 
 ## <a id="managing"></a>Managing Windows Cells
-
-* <a href="./upgrade-windows.html" class="subnav">Upgrading Windows Cells</a>
-	<p class="note"><strong>Note</strong>:  For customers who are using the BOSH Release for Windows, there is no migration path. To upgrade, those customers must destroy their deployment of Windows cells with the BOSH CLI and then do a fresh install of the Windows tile.</p>
-
-	<p class="note"><strong>Note</strong>: For customers who are using Diego Windows (in either PCF 1.7 or 1.8), follow the procedures in the [Migrating from Diego Windows](msi-crossgrade.html.md.erb) topic to upgrade the Windows tile.</p>
 
 * <a href="./windows-rotate-creds.html" class="subnav">Rotating Credentials in Garden Windows</a>
 
@@ -45,7 +36,3 @@ Once the Windows cell is running, developers can specify a Windows stack when pu
 ## <a id='dev'></a>Developing on Windows Cells
 
 * <a href="push-windows-apps.html" class="subnav">Deploying .NET Apps to Windows Cells</a>
-
-
-
-
