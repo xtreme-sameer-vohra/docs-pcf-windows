@@ -25,9 +25,8 @@ The latest versions of your existing products will appear in the Ops Manager Ins
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
-1. Retrieve the stemcell by following the steps below for your IaaS.
-
-    * For vSphere, you must build your own stemcell.
+1. Retrieve the stemcell by following the steps below for your IaaS:
+    * For vSphere, you must [build your own stemcell](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/blob/master/create-manual-vsphere-stemcells.md).
     * For AWS, GCP, and Azure, navigate to the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
 
 1. Click the **PCF Runtime for Windows** tile.
@@ -44,47 +43,27 @@ The latest versions of your existing products will appear in the Ops Manager Ins
 
 ##<a id='upgrade-apps'></a> Upgrade Windows Apps
 
-If you have upgraded from PCF for Windows 1.9 to PCF for Windows 1.10 and have apps to upgrade from 1.9 to 1.10, there will be a momentary downtime of your apps unless you complete a [Blue-Green Deployment](https://docs.cloudfoundry.org/devguide/deploy-apps/blue-green.html).
+If you have upgraded from PCF Runtime for Windows 1.9 to PCF Runtime for Windows 1.10 and you have apps to upgrade from 1.9 to 1.10, your apps will experience momentary downtime unless you complete a [Blue-Green Deployment](https://docs.cloudfoundry.org/devguide/deploy-apps/blue-green.html).
 
-* If your .NET app was previously pushed with the binary\_buildback and you are relying on the <code>WebAppServer.exe</code> you must:
+Consult the following list of scenarios for instructions on how to upgrade your apps.
 
-	* Push with the <code>hwc\_buildpack</code>
+* If your .NET app was previously pushed with the `binary_buildback` and you are relying on the <code>WebAppServer.exe</code> you must push with the <code>hwc\_buildpack</code>:
 
-		<pre class="terminal">$ cf push APP-NAME -s windows2012R2 -b hwc_buildpack</pre>
+	<pre class="terminal">$ cf push APP-NAME -s windows2012R2 -b hwc_buildpack</pre>
 
-		By passing `windows2012R2` with the `-s` flag, you instruct PCF to run the app in the Windows cell.
-		If you are not pushing your app from its directory, add the `-p` flag to specify the path to the directory that contains the app.
+	By passing `windows2012R2` with the `-s` flag, you instruct PCF to run the app in the Windows cell.
+	If you are not pushing your app from its directory, add the `-p` flag to specify the path to the directory that contains the app.<br><br>
 
-		An app with the <code>hwc\_buildpack</code> should not be pushed with the <code>-c</code> flag.
+	An app with the <code>hwc\_buildpack</code> should not be pushed with the <code>-c</code> flag.<br><br>
 
-If you try to <code>cf restage</code>, your app will fail to restage because you cannot switch to the <code>hwc\_buildpack</code> via <code>cf restage</code>.
+	If you try to <code>cf restage</code>, your app will fail to restage because you cannot switch to the <code>hwc\_buildpack</code> via <code>cf restage</code>.
 
-* If you have a binary app you must:
+* If you have a binary app you must push with the <code>-c</code> flag:
 
-	* Push with the <code>-c</code> flag.
+	<pre class="terminal">
+	$ cf push APP-NAME -s windows2012R2 binary_buildpack -c PATH-TO-BINARY
+	</pre>
 
-		<pre class="terminal">
-		$ cf push APP-NAME -s windows2012R2 binary_buildpack -c PATH-TO-BINARY
-		</pre>
+ 	A .NET app with a <code>Web.config</code> does not have to specify the <code>-b</code> flag.
 
-	 	A .NET app with a <code>Web.config</code> does not have to specify the <code>-b</code> flag.
-
- Apps that need custom start commands and require the <code>WebAppServer.exe</code> should have their start commands updated to reflect the path to <code>hwc.exe</code>, which is provided by the HWC buildpack.
-
- ### For a given app ...
-
- If your app is a .NET app and has a `Web.config` then you need to push with the HWC buildpack if you're relying on the `WebAppServer.exe` provided by the Windows App Lifecycle. This `WebAppServer.exe` will be removed in a future version of Pivotal Cloud Foundry.
-
- You need to repush your app with `cf push`. The app will fail to restage if you try to `cf restage` because you cannot change the app's buildpack to HWC buildpack.
-
- ### About the `-c` flag
-
- If you previously pushed an app with the `-c` flag, and it is an app that needs the HWC buildpack, then you should stop using the `-c` flag. If it is a binary app, then continue to use it.
-
- Apps that need custom start commands and require the `WebAppServer.exe` should have their start commands updated to reflect the path to `hwc.exe` provided by the HWC buildpack.
-
- ### Other Notes
-
- You don't strictly need to specify `-b` if you are pushing a .NET app with a Web.config, auto detect should work, but it is recommended, as staging occurs faster.
-
- `cf restart` will work for all apps (no new droplet is created so old apps are not changed).
+* If your app needs a custom start command and requires the <code>WebAppServer.exe</code>, you must update the start command to reflect the path to <code>hwc.exe</code>, which is provided by the HWC buildpack.

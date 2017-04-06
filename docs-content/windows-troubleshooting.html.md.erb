@@ -133,6 +133,8 @@ Perform the following steps to connect to your Windows cell to run diagnostics:
 1. Retrieve the Administrator password for your Windows cell by following the steps for your IaaS:
 	* On vSphere, this is the value of `WINDOWS_PASSWORD` in the `consumer-vars.yml` file you used to previously build a stemcell.
 	* On Amazon Web Services (AWS), navigate to the AWS EC2 console. Right-click on your Windows cell and select **Get Windows Password** from the drop-down menu. Provide the local path to the `ops_mgr.pem` private key file you used when installing Ops Manager and click **Decrypt password** to obtain the Administrator password for your Windows cell.
+	* On Google Cloud Platform (GCP), navigate to the Compute Engine Dashboard. Under **VM Instances**, select the instance of the Windows VM. At the top of the page, click on **Create or reset Windows password**. When prompted, enter "Administrator" under **Username** and click **Set**. You will receive a one-time password for the Windows cell.
+	* You cannot RDP into Windows cells on Azure.
 
 1. Open your RDP client. The examples below use the Microsoft Remote Desktop app.
 
