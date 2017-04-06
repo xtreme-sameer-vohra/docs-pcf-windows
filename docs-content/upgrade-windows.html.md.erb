@@ -61,9 +61,7 @@ Consult the following list of scenarios for instructions on how to upgrade your 
 * If you have a binary app you must push with the <code>-c</code> flag:
 
 	<pre class="terminal">
-	$ cf push APP-NAME -s windows2012R2 binary_buildpack -c PATH-TO-BINARY
+	$ cf push APP-NAME -s windows2012R2 -b binary_buildpack -c PATH-TO-BINARY
 	</pre>
-
- 	A .NET app with a <code>Web.config</code> does not have to specify the <code>-b</code> flag.
 
 * If your app needs a custom start command and requires the <code>WebAppServer.exe</code>, you must update the start command to reflect the path to <code>hwc.exe</code>, which is provided by the HWC buildpack.
