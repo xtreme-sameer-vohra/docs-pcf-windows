@@ -9,7 +9,7 @@ This topic describes how to install and configure the Pivotal Cloud Foundry (PCF
 
 ## <a id='reqs'></a> Requirements
 
-To install the PCF Runtime for Windows v1.9 tile, you must have Ops Manager 1.9.2 or later and Elastic Runtime 1.9.0 or later deployed to vSphere.
+To install the PCF Runtime for Windows v1.9 tile, you must have Ops Manager v1.9.2 or later and Elastic Runtime v1.9.0 or later deployed to vSphere.
 
 ## <a id='ert'></a> Step 1: Confirm Elastic Runtime Settings
 
@@ -30,7 +30,7 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
 
 1. Click the newly added **PCF Windows Runtime** tile.
 
-    <%= image_tag('pcf-windows-tile-orange.png') %>
+  <%= image_tag('pcf-windows-tile-orange.png') %>
 
 1. Click **Resource Config** and adjust the number and VM types of your Windows cells as needed.
 
@@ -38,10 +38,10 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
 
 1. Click **Stemcell**. Record the stemcell version number required by the tile. 
 
-	<%= image_tag('pcf-windows-tile-stemcell.png') %>
+  <%= image_tag('pcf-windows-tile-stemcell.png') %>
 
-1. Build your own stemcell by following the instructions in [Creating a vSphere Stemcell by Hand](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/blob/master/create-manual-vsphere-stemcells.md).
-    
+1. Build your own stemcell by following the instructions in [Creating a vSphere Stemcell](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/blob/master/create-manual-vsphere-stemcells.md).
+
 1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install the PCF Runtime for Windows tile.
