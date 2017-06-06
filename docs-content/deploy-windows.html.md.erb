@@ -28,7 +28,7 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
 
 ##<a id='config'></a> Step 2: Configure and Deploy the Tile
 
-1. Click the newly added **PCF Windows Runtime** tile.
+1. Click the newly added **PCF Runtime for Windows** tile.
 
     <%= image_tag('pcf-windows-tile-orange.png') %>
 
@@ -36,9 +36,25 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
 
 1. Assign your AZs and networks and click **Save**.
 
-1. Click **Application Containers**.
+1. (Optional) If you want your PCF Runtime for Windows application workloads to be deployed to an isolation segment, perform the following steps:
 
-1. Click **Advanced Features**.
+	1. Click **Application Containers**.
+
+		<%= image_tag('app_containers_segment_name.png') %>
+	1. Under **Segment Name**, enter a name for your isolation segment. Ensure that this name is unique across your PCF deployment.
+	1. Click **Save**.
+	1. Perform the steps in the [Create an Isolation Segment](../adminguide/isolation-segments.html#create-an-is) section of the <em>Managing Isolation Segments</em> topic to create the isolation segment in the Cloud Controller Database (CCDB).
+
+1. (Optional) If you want to specify memory capacity and disk capacity for your Windows Cells, perform the following steps:
+	
+	1. Click **Advanced Features**.
+
+		<%= image_tag('advanced_features_fields.png') %>
+
+	1. Enter the total desired amount of Diego Cell memory value in the **Cell Memory Capacity (MB)** field. Refer to the **Windows Diego Cell** row in the **Resource Config** tab for the current Cell memory capacity settings that this field overrides.
+
+	1. Enter the total desired amount of Diego cell disk capacity value in the **Cell Disk Capacity (MB)** field. Refer to the **Windows Diego Cell** row in the **Resource Config** tab for the current Cell disk capacity settings that this field overrides.
+	1. Click **Save**.
 
 1. Click **Errands**. Pivotal recommends that the **Install HWC Buildpack Errand** be set to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
 	
