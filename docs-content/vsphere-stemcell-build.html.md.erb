@@ -5,13 +5,13 @@ owner: Greenhouse
 
 <strong><%= modified_date %></strong>
 
- In vSphere, customers must build their own stemcells in order to use their on-premise deployments. In order to create the vSphere stemcell manually, you must first begin with an ISO or other VM image. This document describes how to use VMware Workstation, VMware Fusion, and vCenter to:
+In vSphere, customers must build their own stemcells to use their on-premise deployments. To create the vSphere stemcell manually, you must first begin with an ISO or other virtual machine (VM) image. This document describes how to use VMware Workstation, VMware Fusion, and vCenter to do the following:
 
 + Install the BOSH dependencies.
-+ Create a .tgz file (the stemcell) that can be uploaded to your BOSH director and used with Cloud Foundry.
++ Create a .tgz file, the stemcell, that you can upload to your BOSH Director and use with Cloud Foundry.
 
-<p class="note"><strong>Note</strong>
-This process is based on the fact that the operator is maintaining an updated template with all Windows recommended security updates. Every release of this repository includes an <code>updates.txt</code> file that lists the currently recommended KB Microsoft hotfixes to have installed. You can determine if your image needs updates by creating a VM with the image and going to <b>Control Panel</b>. If any critical or important updates are available we recommend installing updates first, then rebuilding the stemcell.
+<p class="note"><strong>Note</strong>: 
+This process is based on the fact that the operator is maintaining an updated template with all Windows recommended security updates. Every release of this repository includes an <code>updates.txt</code> file that lists the currently recommended KB Microsoft hotfixes to have installed. You can determine if your image needs updates by creating a VM with the image and going to <b>Control Panel</b>. If any critical or important updates are available, we recommend installing updates first, then rebuilding the stemcell.
 </p>
 
 ## <a id="req"></a>Requirements 
@@ -23,8 +23,7 @@ This process is based on the fact that the operator is maintaining an updated te
 </tr>
 <tr>
   <td><a href="https://www.vmware.com/support/developer/ovf">ovftool</a></td>
-  <td>You should make sure the <code>ovftool</code> command is available from your command line.
-  It is installed by default in <code>C:\Program Files\VMware\VMware OVF Tool</code>.</td>
+  <td>Make sure the <code>ovftool</code> command is available from your command line. This tool is installed by default in <code>C:\Program Files\VMware\VMware OVF Tool</code>.</td>
 </tr>
 <tr>
   <td><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2012-r2">Windows ISO</a></td>
@@ -57,7 +56,7 @@ This process is based on the fact that the operator is maintaining an updated te
 </table>
 
 <p class="note"><strong>Note:</strong>
-These are instructions for installing Windows from a Windows installation disk ISO (either a volume licensed copy or a retail copy from MSDN). We recommend maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This way, you may apply Windows Updates and create new stemcells without having to reinstall all updates from scratch. Make sure that your image has <b>Hardware Compatibility</b> set to <b>version 9</b>, and that it has VMware tools installed.
+These are instructions for installing Windows from a Windows installation disk ISO, either a volume licensed copy or a retail copy from MSDN. We recommend maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This way, you may apply Windows Updates and create new stemcells without having to reinstall all updates from scratch. Make sure that your image has <b>Hardware Compatibility</b> set to <b>version 9</b>, and that it has VMware tools installed.
 </p>
 
 ## <a id="Step-1"></a> Step 1: Create base VM for stemcell
@@ -65,17 +64,17 @@ These are instructions for installing Windows from a Windows installation disk I
 1. Select **File** and then **New**.
 1. Select **Installation Method: Create a custom virtual machine**.
 1. Choose **Operating System**: **Microsoft Windows**, and then **Windows Server 2012**. Despite selecting this Operating System, you will be selecting **Windows Server 2012R2** in a subsequent step.
-1. Choose **Virtual Disk**: Create a new virtual disk**. You can use the default settings. 
+1. Choose **Virtual Disk**: Create a new virtual disk. You can use the default settings. 
 1. Select **Customize Settings**. Save the VM before continuing. You can use a name of your choosing. 
 1. A **Settings** window will appear for your new VM. In the settings window, enter the following configurations:
-	1. In the **Removable Devices** row, select **Camera**, and then Remove device.
-	1. In the **Removable Devices** row, select **CD/DVD** and then check the 'Connect CD/DVD Drive' box.
-	1. In the **This drive is configured to use the following:** section, select **Choose a disc or disc image** and then input your base ISO.
-	1. In the **Advanced Options** section select **Bus type** and then **SCSI**, which is required for Hardware Version 9.
-	1. In the **Other** row, select **Compatibility** then **Advanced Options**, **Use Hardware Version number 9**, and then click **Apply**.
+	1. In the **Removable Devices** row, select **Camera** > **Remove device**.
+	1. In the **Removable Devices** row, select **CD/DVD**, then select the **Connect CD/DVD Drive** checkbox.
+	1. In the **This drive is configured to use the following** section, select **Choose a disc or disc image**, then input your base ISO.
+	1. In the **Advanced Options** section select **Bus type** > **SCSI**, which is required for Hardware Version 9.
+	1. In the **Other** row, select **Compatibility** > **Advanced Options** > **Use Hardware Version number 9**, then click **Apply**.
 	1. In **Processor & Memory**, located within the **System Settings** row, keep the default settings for cores, processors, and memory.
 1. Start VM. 
-	1. If you are starting from a new MSDN ISO, go through Windows installation process with your ISO Pivotal recommends select **Windows Server 2012R2 Standard with a GUI**, if going through installation.
+	1. If you are starting from a new MSDN ISO, proceed through the Windows installation process with your ISO. Pivotal recommends that you select **Windows Server 2012R2 Standard with a GUI** when proceeding with installation.
 1. Install VMware Tools.
 	1. Select **Virtual Machine**, select  **Install VMWare Tools**, **Complete Installation**, and follow the installation instructions. 
 	1. Restart the VM to finish the install.
@@ -90,16 +89,16 @@ These are instructions for installing Windows from a Windows installation disk I
 ###<a id="Workstation"></a> For VMware Workstation
 1. Install VMware workstation.
 1. Create a new Virtual Machine:
-	1. Select **Custom Advanced** and then click **Next**.
-	1. Select **Workstation 9.x Compatibility** and then click **Next**.
-	1. Select **I will install operating system later** and then click **Next**.
-	1. Select **Microsoft Windows** and then the **Windows 2012R2** version and then click **Next**.
-	1. Choose a name for your virtual machine and then click **Next**.
+	1. Select **Custom Advanced**, then click **Next**.
+	1. Select **Workstation 9.x Compatibility**, click **Next**.
+	1. Select **I will install operating system later**, then click **Next**.
+	1. Select **Microsoft Windows**, then the **Windows 2012R2** version. Click **Next**.
+	1. Choose a name for your virtual machine, then click **Next**.
 	1. Select **BIOS** and click **Next**.
-	1. Keep default settings for number of cores and processors and then click **Next**.
-	1. Keep default settings for memory and then click **Next**.
-	1. Select the correct **Network Type (NAT)** and then click **Next**.
-	1. Create a new virtual disk and then click **Next**.
+	1. Keep the default settings for number of cores and processors and click **Next**.
+	1. Keep default settings for memory and click **Next**.
+	1. Select the correct **Network Type (NAT)**, then click **Next**.
+	1. Create a new virtual disk, then click **Next**.
 	1. Select **Customize Hardware**.
 		1. Select **New CD/DVD**.
 		1. Select **Use ISO Image file** and browse for the correct ISO.
@@ -107,28 +106,28 @@ These are instructions for installing Windows from a Windows installation disk I
 	1. Select **Server with GUI**.
 	1. Select **Custom Installation**.
 	1. Continue the installation and select a password for the Admin user.
-1. After the VM has started successfully, right-click the machine name in Workstation and Install VMware Tools.
+1. After the VM starts successfully, right-click the machine name in Workstation and select **Install VMware Tools**.
 1. Shut down the VM.
-1. Remove the ISO file from the CD/DVD drive
+1. Remove the ISO file from the CD/DVD drive.
 	1. Select the settings for the VM.
 	1. Select **CD/DVD Remove**.
 	1. Add **CD/DVD Drive**.
-	1. Select **Use Physical drive** and **Auto Detect**.
+	1. Select **Use Physical drive** > **Auto Detect**.
 	1. De-select **Connect at power on**.
 	1. Select **Ok**.
 1. Start the new VM.
 
 ###<a id="vCenter"></a>For vCenter
 1. If you are using an ISO, upload it to your datastore.
-	1. Select **vCenter** and then **Datastores**.
+	1. Select **vCenter** > **Datastores**.
 	1. Select your desired datastore and directory.
-	1. Select **Upload a file to datastore** and upload the ISO. This would be the hard disk icon with a green plus sign.
-1. If you are using a web browser to upload the ISO to your datastore, you will be prompted to install a web plugin.  
+	1. Select **Upload a file to datastore** and upload the ISO. This is the hard disk icon with a green plus sign.
+1. If you use a web browser to upload the ISO to your datastore, you will be prompted to install a web plugin.  
 1. Create a new virtual machine.
-	1. If you are using an existing template, select the **creation type**: **Deploy from template**, select the existing template, and then click **Next**.
+	1. If you use an existing template, select the **creation type: Deploy from template**. Select the existing template, then click **Next**.
 
-1. In **Select compatibility**, ensure that you choose **ESXi 5.5 and later** and click **Next**.
-1. Select **Windows** as **Guest OS Family** and **Microsoft Windows Server 2012R2** as **Guest OS version** and click **Next**. 
+1. In **Select compatibility**, choose **ESXi 5.5 and later**. Click **Next**.
+1. Select **Windows** as **Guest OS Family** and **Microsoft Windows Server 2012R2** as **Guest OS version**. Click **Next**. 
 1. In **Customize Hardware**:
 	1. Under **New CD\DVD Drive**:
 	  * Select **Datastore ISO File**. 
@@ -146,30 +145,20 @@ These are instructions for installing Windows from a Windows installation disk I
   * Remove CD/DVD drive.
   * Select **New device** > **CD/DVD Drive** and click **Add**.
   * Under **New CD/DVD Drive**, select **Client Device**. 
-  * Expand the menu and select **IDE** as the Virtual Device Node. **'Connect at Power On' should NOT be selected.**
-1. Remove New **SATA Controller**, if present. 
+  * Expand the menu and select **IDE** as the Virtual Device Node. **Connect at Power On** should not be selected.
+1. Remove **New SATA Controller**, if present. 
 
 ##<a id="Step 2"></a> Step 2: Download BOSH PSModules
 
-<p class="note"><strong>Note:</strong>
-Do not use the GitHub generated "Source Code" <code>.zip</code> and "Source Code" <code>.tar.gz</code> files from the releases page - they are not Git repositories and are missing submodules. On Windows you MUST clone straight into <code>C:\\</code>, or the git clone and submodule update will fail due to file path lengths.
+<p class="note"><strong>Note</strong>: 
+Do not use the GitHub generated "Source Code" <code>.zip</code> and "Source Code" <code>.tar.gz</code> files from the releases page. These are not Git repositories and are missing submodules. On Windows, you must clone directly into <code>C:\\</code>, or the git clone and submodule update will fail due to file path lengths.
 </p>
 
 1. Download the **bosh-psmodules.zip** for your desired release <a href="https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases">here</a>. 
 1. Proceed to _Step 3: Install BOSH PSModules_.
 
 
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-    .note.warning:before {
-        color: #f99;
-    }
-</style>
-
-<p class="note warning"><strong>IMPORTANT:</strong>
+<p class="note warning"><strong>Warning</strong>: 
 Pivotal does not recommend building the BOSH PSModules from the source. However, if you must do so, follow the steps below.
 </p>
 
@@ -229,7 +218,7 @@ In order to reduce the stemcell size, you can run the following powershell modul
 
 ##<a id="Step 7"></a> Step 7: Sysprep and apply security policies
 
-<p class="note"><strong>Note:</strong>
+<p class="note"><strong>Note</strong>: 
 Applying the security policies supports the security of the stemcell and firewall rules that ensure secure operations on Cloud Foundry; therefore, Pivotal strongly recommends applying these policies. You can do so by completing the three steps below:
 </p>
 

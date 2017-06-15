@@ -9,15 +9,15 @@ This topic describes how to upgrade the PCF Runtime for Windows tile and update 
 
 ##<a id='upgrade-tile'></a> Upgrade PCF Runtime for Windows
 
-The latest versions of your existing products will appear in the **Ops Manager Installation Dashboard**. Upgrade your product to the latest version by following these instructions.
+The latest versions of your existing products appear in the **Ops Manager Installation Dashboard**. Upgrade your product to the latest version by following these instructions.
 
 1. Navigate to the **Ops Manager Installation Dashboard**.
 
-1. Locate and download the product version you want to upgrade to by clicking on the green download icon on the left-hand side of the screen.
+1. Click on the green download icon on the left-hand side of the screen to locate and download the product version to which you want to upgrade.
 
-1. When the download is complete, click **Apply Changes**.
+1. When the download completes, click **Apply Changes**.
 
-1. If necessary, configure the product. For more information on configuring PCF Runtime for Windows, see the [Deploying PCF Runtime for Windows](./deploy-windows.html) topic.
+1. If necessary, configure the product. For more information about configuring PCF Runtime for Windows, see the [Deploying PCF Runtime for Windows](./deploy-windows.html) topic.
 
 1. Locate the **Pending Changes** section on the right-hand side of the screen and click **Apply Changes**.
 
@@ -43,25 +43,23 @@ The latest versions of your existing products will appear in the **Ops Manager I
 
 ##<a id='upgrade-apps'></a> Upgrade Windows Apps
 
-If you have upgraded from PCF Runtime for Windows 1.10 to PCF Runtime for Windows 1.11 and you have apps to upgrade from 1.10 to 1.11, your apps will experience momentary downtime unless you complete a [Blue-Green Deployment](../devguide/deploy-apps/blue-green.html).
+If you upgrade from PCF Runtime for Windows v1.10 to PCF Runtime for Windows v1.11 and you have apps to upgrade from v1.10 to v1.11, your apps will experience momentary downtime unless you complete a [Blue-Green Deployment](../devguide/deploy-apps/blue-green.html).
 
-Consult the following list of scenarios for instructions on how to upgrade your apps.
+Consult the following list of scenarios for instructions about upgrading your apps.
 
 * If your .NET app was previously pushed with the `binary_buildback` and you are relying on the <code>WebAppServer.exe</code> you must push with the <code>hwc\_buildpack</code>:
 
-	<pre class="terminal">$ cf push APP-NAME -s windows2012R2 -b hwc_buildpack</pre>
-
-	By passing `windows2012R2` with the `-s` flag, you instruct PCF to run the app in the Windows cell.
-	If you are not pushing your app from its directory, add the `-p` flag to specify the path to the directory that contains the app.<br><br>
-
-	An app with the <code>hwc\_buildpack</code> should not be pushed with the <code>-c</code> flag.<br><br>
-
-	If you try to <code>cf restage</code>, your app will fail to restage because you cannot switch to the <code>hwc\_buildpack</code> via <code>cf restage</code>.
+    <pre class="terminal">$ cf push APP-NAME -s windows2012R2 -b hwc_buildpack</pre>
+    By passing `windows2012R2` with the `-s` flag, you instruct PCF to run the app in the Windows cell. If you are not pushing your app from its directory, add the `-p` flag to specify the path to the directory that contains the app.
+<br><br>
+An app with the <code>hwc\_buildpack</code> should not be pushed with the <code>-c</code> flag.
+<br><br>
+If you try to <code>cf restage</code>, your app will fail to restage because you cannot switch to the <code>hwc\_buildpack</code> using <code>cf restage</code>.
 
 * If you have a binary app you must push with the <code>-c</code> flag:
 
-	<pre class="terminal">
-	$ cf push APP-NAME -s windows2012R2 -b binary_buildpack -c PATH-TO-BINARY
-	</pre>
+    <pre class="terminal">
+    $ cf push APP-NAME -s windows2012R2 -b binary_buildpack -c PATH-TO-BINARY
+    </pre>
 
 * If your app needs a custom start command and requires the <code>WebAppServer.exe</code>, you must update the start command to reflect the path to <code>hwc.exe</code>, which is provided by the HWC buildpack.
