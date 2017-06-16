@@ -334,3 +334,11 @@ Using **bosh-windows-acceptance-tests** helps you confirm that your stemcell is 
 
 <pre class="terminal">$ rake package: bwats
 $ rake run:bwats ["vsphere"]</pre>
+
+##<a id="known-issues"></a> Known Issues
+This section lists known issues for creating a vSphere stemcell manually.
+
+###<a id="special"></a> Special Characters
+There is a known issue with using several special characters in the password while running the powershell command detailed in the above _Sysprep and apply security policies_ step. We recommend using the exclamation point, that is "!", as a special character until this issue is resolved.
+
+
