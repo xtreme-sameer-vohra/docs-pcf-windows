@@ -196,6 +196,7 @@ To make sure you have the proper .NET Framework version(s) installed, follow thi
 
 1. Download `agent.zip` file. The `agent.zip` file is provided as a package in the release available on <a href="https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases">Github</a>. We recommend downloading the .zip file from that package.
 1. Transfer the `build/agent.zip` file you downloaded from the releases page to your Windows VM. 
+1. On your Windows VM, start `powershell` and run `Install-Agent -IaaS vsphere -agentZipPath PATH_TO_agent.zip`.
 1. Proceed to _Step 6: Optimize and Compress Disk_. 
 
 <p class="note warning">
@@ -224,14 +225,14 @@ Applying the security policies supports the security of the stemcell and firewal
 
 1. [Download](https://msdnshared.blob.core.windows.net/media/2016/09/LGPOv2-PRE-RELEASE.zip) `lgpo.exe` to the Windows VM you are provisioning.
 1. Save `lgpo.exe` to `C:\Windows\lgpo.exe`.
-1. Run the following powershell command: 
+1. Run the following powershell command, replacing values in ALL_CAPS with your own information:
 `Invoke-Sysprep -IaaS vsphere -NewPassword NEW_PASSWORD -ProductKey PRODUCT_KEY -Owner OWNER -Organization ORGANIZATION`
 
 Completing the above will power off the VM. Do not turn the VM back on before exporting.
 
 <b>If you decide to</b> `sysprep` <b>the image without applying the recommended security policies:</b> 
 
-1. Run the following powershell command:
+1. Run the following powershell command, replacing values in ALL_CAPS with your own information:
 
 `Invoke-Sysprep -IaaS vsphere -NewPassword NEW_PASSWORD -ProductKey PRODUCT_KEY -Owner OWNER -Organization ORGANIZATION -SkipLGPO`
 
