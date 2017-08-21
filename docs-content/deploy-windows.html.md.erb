@@ -51,6 +51,16 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
     
     1. Perform the steps in the [Create an Isolation Segment](../adminguide/isolation-segments.html#create-an-is) section of the <em>Managing Isolation Segments</em> topic to create the isolation segment in the Cloud Controller Database (CCDB).
 
+1. If you would like to enable system logging for VM logs within the PCF Runtime for Windows tile, perform the following steps:
+    
+    <%= image_tag('enable-syslog-wrt.png') %>
+
+    1. Select **Enable**.
+    1. Enter the network or IP address in the **Address** field.
+    1. Enter the syslog port in the **Port** field.
+    1. Select the transport protocol from the dropdown menu in the **Protocol** section.
+
+
 1. (Optional) If you want to specify memory capacity and disk capacity for your Windows Cells, perform the following steps:
 	
     1. Click **Advanced Features**.
