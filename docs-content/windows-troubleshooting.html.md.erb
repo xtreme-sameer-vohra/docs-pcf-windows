@@ -115,20 +115,29 @@ Perform the following steps to connect to your Windows cell to run diagnostics:
 
 1. Follow the steps in the [Log into BOSH](../customizing/trouble-advanced.html#log-in) section of the <em>Advanced Troubleshooting with the BOSH CLI</em> topic to target and log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 
-1. Retrieve the IP address of your Windows cell:
-	<pre class="terminal">
-	$ bosh vms garden-windows
-	Acting as user 'director' on deployment 'garden-windows' on 'p-bosh-1170e9b438cb29ff7c63'
-	Director task 274
-	Task 274 done
-	+-------------------------------------------------------+---------+---------+---------+--------------+
-	| VM                                                    | State   | AZ      | VM Type | IPs          |
-	+-------------------------------------------------------+---------+---------+---------+--------------+
-	| cell_windows/0 (03e221b3-3222-5e1e-eedd-b92221ff88e1) | running | default | xlarge  | <%= vars.example_ip_2 %> |
-	+-------------------------------------------------------+---------+---------+---------+--------------+
+1. Retrieve the IP address of your Windows cell using one of the following methods.
+  * If you use [BOSH CLI v1](https://bosh.io/docs/bosh-cli.html), run the following command:
+        <pre class="terminal">
+        $ bosh vms garden-windows
+        Acting as user 'director' on deployment 'garden-windows' on 'p-bosh-1170e9b438cb29ff7c63'
+        Director task 274
+        Task 274 done
+        +-------------------------------------------------------+---------+---------+---------+--------------+
+        | VM                                                    | State   | AZ      | VM Type | IPs          |
+        +-------------------------------------------------------+---------+---------+---------+--------------+
+        | cell_windows/0 (03e221b3-3222-5e1e-eedd-b92221ff88e1) | running | default | xlarge  | <%= vars.example_ip_2 %> |
+        +-------------------------------------------------------+---------+---------+---------+--------------+
 
-	VMs total: 1
-	</pre>
+        VMs total: 1
+        </pre>
+  * If you use [BOSH CLI v2](https://bosh.io/docs/cli-v2.html), run the following command, replacing `MY-ENV` with the alias you assigned to your BOSH Director:
+        <pre class="terminal">
+        $ bosh -e MY-ENV -d garden-windows
+        Using environment 'DIRECTOR-IP' as client 'admin'
+
+        Name               Release(s)       Stemcell(s)    Team(s)  Cloud Config
+        garden-windows     ...              ...            -        latest
+        </pre>
 
 1. Retrieve the Administrator password for your Windows cell by following the steps for your IaaS:
 	* On vSphere, this is the value of `WINDOWS_PASSWORD` in the `consumer-vars.yml` file you used to previously build a stemcell.
