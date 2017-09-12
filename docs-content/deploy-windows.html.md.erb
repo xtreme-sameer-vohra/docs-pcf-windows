@@ -102,3 +102,27 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
 
 After you have deployed the PCF Runtime for Windows tile, developers can then push .NET applications to Windows cells. For more information, see the [Deploying .NET Apps to Windows Cells](push-windows-apps.html) topic.
 
+##<a id='copy'></a> Step 4: (Optional) Copy the Tile
+
+If you want to create multiple isolation segments for the Windows tile, perform the following steps to copy the **PCF Runtime for Windows** tile with the Replicator tool:
+
+1. Download the Replicator tool from the **Pivotal Cloud Foundry Isolation Segment** section of [Pivotal Network](https://network.pivotal.io/products/isolation-segment).
+
+1. Navigate to the directory where you downloaded the Replicator tool.
+
+1. Replicate the tile:
+    <pre class="terminal">
+    ./replicator \
+        -name "YOUR-NAME" \
+        -path /PATH/TO/ORIGINAL.pivotal \
+        -output /PATH/TO/COPY.pivotal
+    </pre>
+
+    Replace the values above with the following:
+    * `YOUR-NAME`: Provide a unique name for the new PCF Runtime for Windows tile. The name must be ten characters or less and only contain alphanumeric characters, dashes, underscores, and spaces.
+    * `/PATH/TO/ORIGINAL`: Provide the absolute path to the original PCF Runtime for Windows tile you downloaded from Pivotal Network.
+    * `/PATH/TO/COPY`: Provide the absolute path for the copy of the PCF Runtime for Windows tile that the Replicator tool produces.
+
+1. Follow the procedures in this topic using the new `.pivotal` file, starting with [Step 1](#ert).
+
+
