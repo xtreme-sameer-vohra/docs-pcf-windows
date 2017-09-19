@@ -116,13 +116,13 @@ Perform the following steps to connect to your Windows cell to run diagnostics:
 1. Follow the steps in the [Log into BOSH](../customizing/trouble-advanced.html#log-in) section of the <em>Advanced Troubleshooting with the BOSH CLI</em> topic to log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 
 1. Retrieve the IP address of your Windows cell using the BOSH CLI. Run the following command, replacing `MY-ENV` with the alias you assigned to your BOSH Director:
-        <pre class="terminal">
-        $ bosh -e MY-ENV -d garden-windows
-        Using environment 'DIRECTOR-IP' as client 'admin'
+    <pre class="terminal">
+    $ bosh -e MY-ENV -d garden-windows
+    Using environment 'DIRECTOR-IP' as client 'admin'
 
-        Name               Release(s)       Stemcell(s)    Team(s)  Cloud Config
-        garden-windows     ...              ...            -        latest
-        </pre>
+    Name               Release(s)       Stemcell(s)    Team(s)  Cloud Config
+    garden-windows     ...              ...            -        latest
+    </pre>
 
 1. Retrieve the Administrator password for your Windows cell by following the steps for your IaaS:
 	* On vSphere, this is the value of `WINDOWS_PASSWORD` in the `consumer-vars.yml` file you used to previously build a stemcell.
