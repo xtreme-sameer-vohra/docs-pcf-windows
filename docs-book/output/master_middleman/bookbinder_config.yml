@@ -3,7 +3,7 @@
   ".": 
 :production_host: hello
 :subnav_templates:
-  windows: windows_subnav
+  pas-windows: windows_subnav
 :template_variables: 
 :local_repo_dir: "/Users/pivotal/workspace/docs-pcf-windows"
 :workspace: !ruby/object:Pathname
@@ -11,10 +11,10 @@
 :feedback_enabled: 
 :repo_link_enabled: true
 :repo_links:
-  windows:
+  pas-windows:
     repo: docs-content
     ref: master
     at_path: 
 :product_info:
-  windows: {}
+  pas-windows: {}
 :elastic_search: false
