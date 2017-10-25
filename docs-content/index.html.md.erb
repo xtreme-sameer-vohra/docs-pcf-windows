@@ -1,59 +1,26 @@
 ---
-title: Using PCF Runtime for Windows
-owner: Diego
+title: Pivotal Application Service (PAS) for Windows
+owner: Windows
 ---
 
-<strong><%= modified_date %></strong>
+Pivotal Application Service (PAS) for Windows enables operators to provision, operate, and manage Windows cells on Pivotal Cloud Foundry (PCF).
 
-This documentation describes how operators install and manage Windows [cells](../concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF) with PCF Runtime for Windows, and how developers push .NET apps to Windows cells.
+After operators install the PAS for Windows tile on the Ops Manager Installation Dashboard, developers can push applications to Windows cells using the [Cloud Foundry Command Line Interface](https://docs.pivotal.io/pivotalcf/cf-cli/) (cf CLI).
 
-Operators can install PCF Runtime for Windows on vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.
+For more information about how PAS for Windows works, see the [Product Architecture](architecture.html) topic.
 
-## <a id='overview'></a>Overview
+For the PAS for Windows release notes, see the [Release Notes](release-notes.html) topic.
 
-Operators who want to run Windows cells in PCF to enable developers to push .NET apps can deploy the PCF Runtime for Windows tile.
+## Operator Guide
 
-Deploying this tile creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows cell built from a Windows stemcell.
+See the following topics for information on how to install, configure, manage, and troubleshoot PAS for Windows as an operator:
 
-Once the Windows cell is running, developers can specify a Windows stack when pushing .NET apps from the command line. PCF passes the app to the Windows cell in the Garden Windows BOSH deployment. The diagram below illustrates the process.
+* [Installing and Configuring PAS for Windows](installing.html)
+* [Managing PAS for Windows](managing.html)
+* [Troubleshooting PAS for Windows](troubleshooting.html)
 
-<%= image_tag('windows-overview.png') %>
+## Developer Guide
 
-## <a id='requirements'></a> Requirements
+See the following topics for information on how to use PAS for Windows as a developer:
 
-The minimum resource requirement for each Windows cell:
-
-- Disk size: 64&nbsp;GB
-- Memory: 16&nbsp;GB
-- CPUs: 4
-
-## <a id='understand'></a>Understanding PCF Runtime for Windows ##
-
-* <a href="understand-windows.html" class="subnav">Understanding Windows Cells</a>
-
-* <a href="windows-security.html" class="subnav">Understanding Stemcell Security</a>
-
-* <a href="about-windows-stemcells.html" class="subnav">About Windows Stemcells</a>
-
-
-## <a id='install'></a>Installing PCF Runtime for Windows ##
-
-* <a href="./deploy-windows.html" class="subnav">Deploying PCF Runtime for Windows</a>
-
-## <a id="managing"></a>Managing Windows Cells
-
-* <a href="./upgrade-windows.html" class="subnav">Upgrading Windows Cells</a>
-
-* <a href="./configure-kms.html" class="subnav">Configuring a KMS Host</a>
-
-* <a href="./windows-troubleshooting.html" class="subnav">Troubleshooting Windows Cells</a>
-
-## <a id='dev'></a>Developing on Windows Cells
-
-* <a href="push-windows-apps.html" class="subnav">Deploying .NET Apps to Windows Cells</a>
-
-## <a id='rotate'></a>Rotating Credentials
-
-The Elastic Runtime tile handles all of the credentials for PCF Runtime for Windows.
-
-To rotate your credentials in PCF Runtime for Windows, re-deploy Elastic Runtime and PCF Runtime for Windows by navigating to the Ops Manager Installation Dashboard and clicking **Apply Changes**.
+* [Using PAS for Windows](using.html)

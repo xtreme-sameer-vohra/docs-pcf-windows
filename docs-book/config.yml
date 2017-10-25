@@ -16,7 +16,7 @@ public_host: hello
 sections:
   - repository:
       name: docs-content
-    directory: windows
+    directory: pas-windows
     subnav_template: windows_subnav.erb       
 
 template_variables:                             # optional
