@@ -37,10 +37,10 @@ To configure a KMS host, you edit the [runtime config](https://bosh.io/docs/runt
 			        port: 12345 # defaults to 1688
 			  include:
 			    stemcell:
-			    - os: windows2012R2
+			    - os: windows
 
 1. Update the BOSH Director with your new runtime config. For example:
 	<pre class="terminal">
 	$ bosh -e gcp update-runtime-config config.yml
 	</pre>
-1. Redeploy the PAS for Windows 2012R2 tile by navigating to the Ops Manager Installation Dashboard and clicking **Apply Changes**.
+1. Redeploy the PAS for Windows tile by navigating to the Ops Manager Installation Dashboard and clicking **Apply Changes**.

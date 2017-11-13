@@ -7,7 +7,7 @@ This topic describes the architecture of Windows cells that PAS for Windows depl
 
 ## <a id='overview'></a>Overview
 
-Operators who want to run Windows cells in PCF to enable developers to push .NET apps can deploy the PAS for Windows 2012R2 tile.
+Operators who want to run Windows cells in PCF to enable developers to push .NET apps can deploy the PAS for Windows tile.
 
 Deploying this tile creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows cell built from a Windows stemcell.
 
@@ -19,7 +19,7 @@ Once the Windows cell is running, developers can specify a Windows stack when pu
 
 App instances in PCF run inside containers. [Garden](../concepts/architecture/garden.html) is the API that creates and manages these containers, and Garden Windows implements Garden on Windows.
 
-By deploying the [PAS for Windows 2012R2](deploy-windows.html) tile, operators create a Windows [cell](../concepts/architecture/index.html#diego-cell) from a [stemcell](https://bosh.io/docs/stemcell.html) that contains the Windows Server 2012 operating system. Because Windows does not natively support Linux-style containers, Garden Windows uses an open-source library called IronFrame to implement containerization on Windows. IronFrame uses features of the Windows kernel to isolate resources that would otherwise be shared, creating containers comparable to those that exist on Linux.
+By installing the [PAS for Windows](installing.html) tile, operators create a Windows [cell](../concepts/architecture/index.html#diego-cell) from a [stemcell](https://bosh.io/docs/stemcell.html) that contains the Windows Server operating system. Because Windows does not natively support Linux-style containers, Garden Windows uses an open-source library called IronFrame to implement containerization on Windows. IronFrame uses features of the Windows kernel to isolate resources that would otherwise be shared, creating containers comparable to those that exist on Linux.
 
 ### <a id="components"></a> Components
 
@@ -76,12 +76,12 @@ Deployments of Windows Server on PCF currently use a stemcell containing Windows
 
 "Light" stemcells are metadata files used on a public IaaS that enable users to reference and deploy a stemcell without uploading it manually.
 
-Below is the documentation currently available for activating light stemcells for the PAS for Windows 2012R2 tile:
+Below is the documentation currently available for activating light stemcells for the PAS for Windows tile:
 
-+ <a href="../windows2012r2/azure-light-stemcell.html" class="subnav"> Deploying on Azure</a>
++ <a href="../windows/azure-light-stemcell.html" class="subnav"> Deploying on Azure</a>
 
 ### <a id="stemcell-builds"></a> Stemcell Builds
 
-Below is the documentation currently available for building stemcells for the PAS for Windows 2012R2 tile:
+Below is the documentation currently available for building stemcells for the PAS for Windows tile:
 
-+ <a href="../windows2012r2/vsphere-stemcell-build.html" class="subnav"> vSphere Stemcell Build</a>
++ <a href="../windows/vsphere-stemcell-build.html" class="subnav"> vSphere Stemcell Build</a>

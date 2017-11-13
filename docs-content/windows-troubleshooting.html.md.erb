@@ -5,14 +5,14 @@ owner: Greenhouse
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to troubleshoot Windows cells deployed by Pivotal Application Service (PAS) for Windows 2012R2.
+This topic describes how to troubleshoot Windows cells deployed by Pivotal Application Service (PAS) for Windows.
 
 ##<a id='logs'></a> Retrieve Logs
 
 Perform the following steps to retrieve the logs for the Windows cell:
 
 1. Navigate to the Ops Manager Installation Dashboard.
-1. Click the **PAS for Windows 2012R2** tile.
+1. Click the **PAS for Windows** tile.
 1. Click the **Status** tab.
 1. Under the **Logs** column, click the download icon for the Windows cell you want to retrieve logs from.
 1. Click the **Logs** tab.
@@ -23,7 +23,7 @@ Perform the following steps to retrieve the logs for the Windows cell:
 	* `/metron_agent_windows/`
 	* `/rep_windows/`
 
-Hakim is a diagnostic tool that reveals common configuration issues with Windows cells. Because PAS for Windows 2012R2 runs Hakim as a BOSH job, the logs may include Hakim error messages. Refer to the [section](#hakim-error) below for a list of Hakim error messages and their possible solutions.
+Hakim is a diagnostic tool that reveals common configuration issues with Windows cells. Because PAS for Windows runs Hakim as a BOSH job, the logs may include Hakim error messages. Refer to the [section](#hakim-error) below for a list of Hakim error messages and their possible solutions.
 
 ###<a id='hakim-error'></a> Hakim Error Messages
 
@@ -31,7 +31,7 @@ Hakim is a diagnostic tool that reveals common configuration issues with Windows
 
 `The following processes are not running`
 
-This usually indicates a failed deployment. Try [redeploying](deploy-windows.html) the PAS for Windows 2012R2 tile.
+This usually indicates a failed deployment. Try [reinstalling](installing.html) the PAS for Windows tile.
 
 <hr>
 
