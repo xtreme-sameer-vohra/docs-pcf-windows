@@ -5,7 +5,7 @@ owner: Greenhouse
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to upgrade the PCF Runtime for Windows tile and update the Windows stemcell.
+This topic describes how to upgrade and rotate the credentials for PCF Runtime for Windows tile, update the Windows stemcell, and upgrade your Windows apps.
 
 ##<a id='upgrade-tile'></a> Upgrade PCF Runtime for Windows
 
@@ -20,6 +20,12 @@ The latest versions of your existing products appear in the **Ops Manager Instal
 1. If necessary, configure the product. For more information about configuring PCF Runtime for Windows, see the [Deploying PCF Runtime for Windows](./deploy-windows.html) topic.
 
 1. Locate the **Pending Changes** section on the right-hand side of the screen and click **Apply Changes**.
+
+## <a id='rotate'></a>Rotate PCF Runtime for Windows Credentials
+
+The Elastic Runtime tile handles all of the credentials for PCF Runtime for Windows.
+
+To rotate your credentials in PCF Runtime for Windows, re-deploy Elastic Runtime and PCF Runtime for Windows by navigating to the Ops Manager Installation Dashboard and clicking **Apply Changes**.
 
 ##<a id='upgrade-stemcell'></a> Upgrade the Windows Stemcell
 
