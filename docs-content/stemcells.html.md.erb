@@ -1,0 +1,51 @@
+---
+title: Downloading or Creating Windows Stemcells
+owner: Windows
+---
+
+This topic describes how to download or create the stemcell that Pivotal Application Service (PAS) for Windows needs to create VMs on an infrastructure.
+
+## <a id="stemcell"></a> Windows Stemcells
+
+BOSH needs a stemcell to supply the basic operating system for any new Windows 2016 server VMs it creates. Depending on your IaaS, you can create or download a stemcell as follows:
+
+* **AWS**: Download the **AWS light Stemcell for Windows 2016 Server** from the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
+
+* **Azure**: Create a stemcell by following the directions in [Create an Azure Stemcell](#azure) below.
+
+* **GCP**: Download the **GCP light Stemcell for Windows 2016 Server** from the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
+
+* **AWS**: Download the **AWS light Stemcell for Windows 2016 Server** from the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
+
+* **vSphere**: Create a stemcell by following the directions in [Creating a vSphere Stemcell by Hand](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/wiki/Creating-a-vSphere-Stemcell-by-Hand).
+
+## <a id="azure"></a> Create an Azure Stemcell
+
+On Azure you can create a PAS for Windows stemcell from the Azure Light Stemcell metadata file, which the Azure cloud stores in a public directory. Using this file makes it unnecessary to upload a stemcell manually.
+
+### <a id="req"></a> Prerequisites
+
+1. In the **OpsManager Installation Dashboard**, select **PAS for Windows**. 
+1. In the **Settings** tab, select **Resource Config**. 
+1. Within the **VM Type** field, ensure that your **Windows Diego Cell** has a disk size of 128&nbsp;GB or larger. 
+1. Ensure that the **Install HWC Buildpack Errand** has a VM disk size of 128&nbsp;GB or larger.
+1. Navigate to the **Ops Manager Director** of your chosen IaaS. 
+1. Within the **VM Type** field, ensure the Ops Man compilation VM has an ephemeral disk of 128&nbsp;GB or larger.
+
+### <a id="download"></a> Download the Azure Light Stemcell
+
+To Download the Azure Light Stemcell, select **Azure Light Stemcell for Windows2016** from the **Release Download Files** section of the <a href="https://network.pivotal.io/products/stemcells-windows-server">Stemcells for PCF (Windows)</a> page.
+
+### <a id="use"></a> Use the Azure Light Stemcell
+
+To use the Azure light stemcell, you must first accept the corresponding license agreement and enable it for your non-trial Azure subscription through the Azure marketplace. 
+
+1. Navigate to [https://portal.azure.com](https://portal.azure.com) and log in.
+1. From the options on the left side of the page, click **+ New**.
+1. In the **Search the Marketplace** field, search for **BOSH Azure Windows Stemcell**.
+1. Select **BOSH Azure Windows Stemcell** from your search results.
+1. A description of the BOSH Azure Windows Stemcell appears. Beneath the description, at the bottom of the page, click the blue banner that reads **Want to deploy programmatically? Get started ➔**.
+1. Review the **Offer details** and **Terms of use**.
+1. Under **Choose the subscriptions**, click **Enable** for each Azure subscription you want to use.
+1. Click **Save**.
+

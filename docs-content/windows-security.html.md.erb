@@ -1,0 +1,63 @@
+---
+title: Windows Stemcell Hardening 
+owner: Greenhouse
+---
+
+<strong><%= modified_date %></strong>
+
+This topic provides a description of the security measures that Pivotal uses to harden the Windows stemcell.
+
+##<a id="group-policy-list"></a>Local Group Policy Settings
+
+The Windows stemcell contains a version of Windows Server 2016 with a set of Local Group Policy settings optimized for security. These settings begin with the [Security baseline for Windows Server 2016 Techical Preview (TP5)](https://blogs.technet.microsoft.com/secguide/2016/05/27/security-baseline-for-windows-server-2016-technical-preview-5-tp5/).
+
+Pivotal has collaborated with Microsoft to further harden the stemcell by implementing Local Security Policies settings, according to the recommended security baseline defined in Microsoft Security Compliance Manager. The table below lists these overrides.
+
+<p class="note"><strong>Note</strong>: Pivotal will continue to revise these settings as Microsoft releases updates.</p> 
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Setting</th>
+	</tr>
+	<tr>
+		<td>Turn off Automatic Download and Install of updates</td>
+		<td>Enabled</td>
+	</tr>
+	<tr>
+		<td>Allow Remote Shell Access</td>
+		<td>Disabled</td>
+	</tr>
+	<tr>
+		<td>Windows Firewall: Private: Display a notification</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Windows Firewall: Domain: Display a notification</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Windows Firewall: Public: Display a notification</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Network access: Do not allow storage of passwords and credentials for network auth</td>
+		<td>Enabled</td>
+	</tr>
+	<tr>
+		<td>Access this computer from the network</td>
+		<td>Administrators</td>
+	</tr>
+	<tr>
+		<td>Deny log on as a batch job</td>
+		<td>Guests</td>
+	</tr>
+	<tr>
+		<td>Deny log on as a service</td>
+		<td>Guests</td>
+	</tr>
+	<tr>
+		<td>Deny log on through Remote Desktop Services</td>
+		<td>Guests</td>
+	</tr>
+</table>
