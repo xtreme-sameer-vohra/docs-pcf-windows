@@ -124,11 +124,10 @@ Perform the following steps to connect to your Windows cell to run diagnostics:
     garden-windows     ...              ...            -        latest
     </pre>
 
-1. Retrieve the Administrator password for your Windows cell by following the steps for your IaaS:
-	* On vSphere, this is the value of `WINDOWS_PASSWORD` in the `consumer-vars.yml` file you used to previously build a stemcell.
-	* On Amazon Web Services (AWS), navigate to the AWS EC2 console. Right-click on your Windows cell and select **Get Windows Password** from the drop-down menu. Provide the local path to the `ops_mgr.pem` private key file you used when installing Ops Manager and click **Decrypt password** to obtain the Administrator password for your Windows cell.
-	* On Google Cloud Platform (GCP), navigate to the Compute Engine Dashboard. Under **VM Instances**, select the instance of the Windows VM. At the top of the page, click on **Create or reset Windows password**. When prompted, enter "Administrator" under **Username** and click **Set**. You will receive a one-time password for the Windows cell.
-	* You cannot RDP into Windows cells on Azure.
+1. Obtain login credentials for your Windows cell by following the steps for your IaaS:
+	* On Google Cloud Platform (GCP), navigate to the Compute Engine Dashboard. Under **VM Instances**, select the instance of the Windows VM. At the top of the page, click on **Create or reset Windows password**. When prompted, enter a username under **Username** and click **Set** (if the username does not already exist, a new user will be created in the Administrators group; do not use "Administrator" as the username as this account is disabled on GCP). You will receive a one-time password for the Windows cell.
+	* On Azure, from the Virtual machines pane, select the instance of the Windows VM. Under **Support + Troubleshooting**, click on **Reset password**. Provider a username and password and click **Update** (if the username does not already exist, a new user will be created in the Administrators group; do not use "Administrator" as this username is disallowed by Azure).
+	* On vSphere and Amazon Web Services (AWS), there is no way to obtain the current Administrator password through the IaaS as the password is randomized by the BOSH agent on startup. If you set the password when configuring the VM (under Settings > VM Options in the PCF Runtime for Windows tile), you can use this password to login as the Administrator user.
 
 1. Open your RDP client. The examples below use the Microsoft Remote Desktop app.
 
