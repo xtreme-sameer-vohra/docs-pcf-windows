@@ -5,27 +5,32 @@ owner: Diego
 
 <strong><%= modified_date %></strong>
 
-This documentation describes how operators install and manage Windows [cells](../concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF) with PCF Runtime for Windows, and how developers push .NET apps to Windows cells.
+This documentation describes how operators install and manage Windows [cells](../concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF) with PCF Runtime for Windows, and how developers push .NET Framework apps to Windows cells.
 
 Operators can install PCF Runtime for Windows on vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.
 
 ## <a id='overview'></a>Overview
 
-Operators who want to run Windows cells in PCF to enable developers to push .NET apps can deploy the PCF Runtime for Windows tile.
+Operators who want to enable developers to push .NET Framework applications can deploy Windows-based Diego Cells in PCF via the PCF Runtime for Windows tile.
 
-Deploying this tile creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows cell built from a Windows stemcell.
+Deploying this tile creates a separate BOSH deployment populated with the Garden-Windows BOSH release, which runs on a Windows cell built from a Windows Server stemcell, similarly to how the Elastic Runtime Tile deploys Linux-based Diego Cells.
 
-Once the Windows cell is running, developers can specify a Windows stack when pushing .NET apps from the command line. PCF passes the app to the Windows cell in the Garden Windows BOSH deployment. The diagram below illustrates the process.
+Once the Windows cell is running, developers can specify a Windows stack when pushing .NET Framework apps from the command line or PowerShell session. Using the Diego infrastructure, PCF passes the app to the Windows cell in the Runtime for Windows deployment. The diagram below illustrates the process.
 
 <%= image_tag('windows-overview.png') %>
 
 ## <a id='requirements'></a> Requirements
 
-The minimum resource requirement for each Windows cell:
+The minimum resource requirements for each Windows cell are as follows:
 
 - Disk size: 64&nbsp;GB
 - Memory: 16&nbsp;GB
-- CPUs: 4
+- Number of CPUs: 4
+
+By design, Runtime for Windows only supports deployments based on Windows Server 2012R2.
+
+Due to Microsoft's licensing requirements, operators must either bring their own licensed copies of Windows Server (for on-premise deployments) or pay hourly surcharges on public IaaSes for Windows licensing determined by the  IaaS provider (Azure, AWS, GCP).
+
 
 ## <a id='understand'></a>Understanding PCF Runtime for Windows ##
 
@@ -50,15 +55,51 @@ The minimum resource requirement for each Windows cell:
 
 ## <a id='dev'></a>Developing on Windows Cells
 
-* <a href="push-windows-apps.html" class="subnav">Deploying .NET Apps to Windows Cells</a>
+* <a href="push-windows-apps.html" class="subnav">Deploying .NET Framework Apps to Windows Cells</a>
+
+
+## <a id='limitations'></a>Limitations
+
+Deployments of Windows Diego Cells via PCF Runtime for Windows have the following limitations:
+
+* Because of the process management characteristics of Windows Server 2012R2, Windows cells can host a maximum of 40 app instances per cell. Operators should take this density constraint into account when planning the sizes of their Runtime for Windows deployments, in addition to CPU, disk, and memory needs.
+
+* The following Cloud Foundry features are not supported by Runtime for Windows:
+
+  - Diego SSH (i.e. the `cf ssh` command). This is due to limitations of the inherent file system isolation characteristics of Windows Server 2012R2.
+  - Volume Services. For mounting SMB shares, developers can refactor their applications to mount SMB network volumes directly.
+
+
+* The following Windows operational technologies are not supported by Runtime for Windows:
+
+  - Active Directory Domain Services. i.e. joining Windows cells to an Active Directory domain.
+  - Integrated Windows Authentication. Instead, operators should deploy Active Directory Federation Services and the Pivotal SSO tile to enable OAuth-based authentication.
+
+These limitations will be addressed in subsequent versions of the product.
+
 
 ## <a id='issues'></a>Known Issues
 
 PCF Runtime for Windows has the following known issues:
 
-* Windows cells can host a maximum of 40 app instances.
+* In the PCF Runtime for Windows tile **Credentials** tab, the `vcap` credentials that appear when you click **VM Credentials** > **Link to Credential** do not apply to Windows cells, since they do not yet have a vcap user.
 
-* In the PCF Runtime for Windows tile **Credentials** tab, for either **Windows Diego Cell** or **Install HWS Buildpack Errand**, the `vcap` credentials that appear when you click **VM Credentials** > **Link to Credential** are meaningless. Windows cells have no vcap user.
+* Under **VM Options** > **Manage Administrator Password** > **Set the password**, setting the "Administrator" user password has the following issues:
+
+  - For Azure-hosted deployments: Setting the password directly does not yet work. All passwords for the user called "Administrator" will be randomized by default. Please use the following workarounds to access the VM directly:
+
+      - Create a user in the Azure cloud management console.
+      - Use the [Enable SSH](#) feature.
+
+
+  - For GCP-hosted deployments: Setting the password directly does not yet work. Please use the following workarounds to access the VM:
+
+      - Create a user in the GCP cloud management console.
+      - Use the [Enable SSH](#) feature.
+
+      - For AWS and vSphere deployments: You can set a password for the user called "Administrator," but the password must be 8-14 characters and must use letters, numbers, and the `!` character, which is the only working special character.
+
+      - For all IaaSes, for stemcell versions 1200.5 and later, the password for the user called "Administrator" is randomized by default to provide additional security in production settings.
 
 * The controls in the **Advanced Features** pane have no effect.
 
@@ -69,9 +110,3 @@ PCF Runtime for Windows has the following known issues:
   - GCP: Setting the disk size only works for values 50GB or larger.
 
   - vSphere: Setting disk size value has no effect. VM disks will match the disk size of the stemcell you create.
-
-* Under **VM Options** > **Manage Administrator Password** > **Set the password**, setting the admin user password has the following limitations:
-
-  - Azure and GCP: setting the password does not work. You can only **Use random administrator password**.
-
-  - AWS and vSphere: the password must be 8-14 characters; and must use letters, numbers and the `!` character, which is the only allowed special character.
