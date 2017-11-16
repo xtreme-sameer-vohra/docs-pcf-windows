@@ -62,6 +62,14 @@ PCF Runtime for Windows has the following known issues:
 
 * The controls in the **Advanced Features** pane have no effect.
 
+* In the **Resource Config** pane, setting VM disk sizes has the following limitations. See the [Root Disk Sizing](./about-windows-stemcells.html#sizing) table for details:
+
+  - AWS: For stemcells earlier than 1200.9, setting disk size value has no effect. VM disks will be 30GB.
+
+  - GCP: Setting the disk size only works for values 50GB or larger.
+
+  - vSphere: Setting disk size value has no effect. VM disks will match the disk size of the stemcell you create.
+
 * Under **VM Options** > **Manage Administrator Password** > **Set the password**, setting the admin user password has the following limitations:
 
   - Azure and GCP: setting the password does not work. You can only **Use random administrator password**.
