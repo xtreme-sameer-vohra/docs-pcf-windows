@@ -79,9 +79,15 @@ There are two settings in the PAS tile that affect the Windows cells installed b
 
 After you have deployed the PAS for Windows tile, developers can then push .NET applications to Windows cells. For more information, see the [Developing and Deploying .NET Apps](./using.html) topic.
 
-##<a id='copy'></a> Step 4: (Optional) Copy the Tile
+###<a id='isolation'></a> Windows Isolation Segments
 
-If you want to create multiple isolation segments for the Windows tile, perform the following steps to copy the **PAS for Windows** tile with the Replicator tool:
+You can deploy multiple copies of the PAS for Windows tile to create isolation segments for Windows cells. Isolation segments define compartmentalized resource pools for Diego cells that do not share routing, computing, or logging resources, but are managed by the same Cloud Controller.
+
+See [Windows Isolation Segment](#isolation) below for how to create multiple Windows isolation segments. The [Installing PCF Isolation Segment](../customizing/installing-pcf-is.html) topic explains how to create Linux isolation segments.
+
+##<a id='copy'></a> Step 4: (Optional) Replicate the Tile to Create Isolation Segments
+
+You can use the Replicator tool to copy the **PAS for Windows** tile and create multiple isolation segments as follows:
 
 1. Download the Replicator tool from the **Pivotal Cloud Foundry Runtime for Windows** section of [Pivotal Network](https://network.pivotal.io/products/p-windows-runtime).
 
@@ -100,5 +106,5 @@ If you want to create multiple isolation segments for the Windows tile, perform 
     * `/PATH/TO/ORIGINAL`: Provide the absolute path to the original PAS for Windows tile you downloaded from Pivotal Network.
     * `/PATH/TO/COPY`: Provide the absolute path for the copy of the PAS for Windows tile that the Replicator tool produces.
 
-1. Follow the procedures in this topic using the new `.pivotal` file, starting with [Step 1](#ert).
+1. Install and configure the Windows isolation segment, using the new `.pivotal` file and following the procedures in this topic, starting with the **Import a Product** step of [Step 2: Install the Tile](#install).
 
