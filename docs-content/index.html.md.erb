@@ -5,23 +5,23 @@ owner: Diego
 
 <strong><%= modified_date %></strong>
 
-This documentation describes how operators install and manage Windows [cells](../concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF) with PCF Runtime for Windows, and how developers push .NET Framework apps to Windows cells.
+This documentation describes how operators install and manage Windows [Diego cells](../concepts/architecture/index.html#diego-cell) in Pivotal Cloud Foundry (PCF) with PCF Runtime for Windows and how developers push .NET Framework applications to Windows cells.
 
-Operators can install PCF Runtime for Windows on vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.
+Operators can install PCF Runtime for Windows on Microsoft Azure, VMware vSphere, Amazon Web Services (AWS), or Google Cloud Platform (GCP).
 
 ## <a id='overview'></a>Overview
 
 Operators who want to enable developers to push .NET Framework applications can deploy Windows-based Diego Cells in PCF via the PCF Runtime for Windows tile.
 
-Deploying this tile creates a separate BOSH deployment populated with the Garden-Windows BOSH release, which runs on a Windows cell built from a Windows Server stemcell, similarly to how the Elastic Runtime Tile deploys Linux-based Diego Cells.
+Deploying this tile creates a separate BOSH deployment populated with the Garden-Windows BOSH release, which runs on a Windows cell built from a Windows Server 2012R2 stemcell, similarly to how the Elastic Runtime Tile deploys Linux-based Diego Cells.
 
-Once the Windows cell is running, developers can specify a Windows stack when pushing .NET Framework apps from the command line or PowerShell session. Using the Diego infrastructure, PCF passes the app to the Windows cell in the Runtime for Windows deployment. The diagram below illustrates the process.
+Once the Windows cell is running and after developers build their applications, they can then specify the `windows2012R2` stack when pushing .NET Framework apps from the command line or PowerShell session. Using the Diego infrastructure, PCF passes the app to the Windows cell in the Runtime for Windows deployment. The diagram below illustrates the process.
 
 <%= image_tag('windows-overview.png') %>
 
 ## <a id='requirements'></a> Requirements
 
-The minimum resource requirements for each Windows cell are as follows:
+When configuring the Windows deployment, the minimum resource requirements for each Windows cell are as follows:
 
 - Disk size: 64&nbsp;GB
 - Memory: 16&nbsp;GB
@@ -29,7 +29,7 @@ The minimum resource requirements for each Windows cell are as follows:
 
 By design, Runtime for Windows only supports deployments based on Windows Server 2012R2.
 
-Due to Microsoft's licensing requirements, operators must either bring their own licensed copies of Windows Server (for on-premise deployments) or pay hourly surcharges on public IaaSes for Windows licensing determined by the  IaaS provider (Azure, AWS, GCP).
+Due to Microsoft's licensing requirements, operators must either bring their own licensed copies of Windows Server (for on-premise deployments) or pay the surcharges associated with Windows Server licensing determined by the IaaS provider on Azure, AWS, and GCP.
 
 
 ## <a id='understand'></a>Understanding PCF Runtime for Windows ##
@@ -45,6 +45,7 @@ Due to Microsoft's licensing requirements, operators must either bring their own
 
 * <a href="./deploy-windows.html" class="subnav">Deploying PCF Runtime for Windows</a>
 
+
 ## <a id="managing"></a>Managing Windows Cells
 
 * <a href="./upgrade-windows.html" class="subnav">Upgrading Windows Cells</a>
@@ -52,6 +53,7 @@ Due to Microsoft's licensing requirements, operators must either bring their own
 * <a href="./configure-kms.html" class="subnav">Configuring a KMS Host</a>
 
 * <a href="./windows-troubleshooting.html" class="subnav">Troubleshooting Windows Cells</a>
+
 
 ## <a id='dev'></a>Developing on Windows Cells
 
@@ -67,10 +69,11 @@ Deployments of Windows Diego Cells via PCF Runtime for Windows have the followin
 * The following Cloud Foundry features are not supported by Runtime for Windows:
 
   - Diego SSH (i.e. the `cf ssh` command). This is due to limitations of the inherent file system isolation characteristics of Windows Server 2012R2.
-  - Volume Services. For mounting SMB shares, developers can refactor their applications to mount SMB network volumes directly.
+  - Volume services. For mounting SMB shares, developers should access SMB volumes from their applications directly.
+  - Container-to-container networking. The IronFrame library that provides container-like features on Windows Server 2012R2 does not support container networking. IronFrame binds virtual container ports to the host.
 
 
-* The following Windows operational technologies are not supported by Runtime for Windows:
+* The following Windows technologies are not supported by Runtime for Windows:
 
   - Active Directory Domain Services. i.e. joining Windows cells to an Active Directory domain.
   - Integrated Windows Authentication. Instead, operators should deploy Active Directory Federation Services and the Pivotal SSO tile to enable OAuth-based authentication.
