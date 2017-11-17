@@ -76,11 +76,15 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install the PCF Runtime for Windows tile.
 
-After you have deployed the PCF Runtime for Windows tile, developers can then push .NET applications to Windows cells. For more information, see the [Deploying .NET Apps to Windows Cells](push-windows-apps.html) topic.
+###<a id='isolation'></a> Windows Isolation Segments
 
-##<a id='copy'></a> Step 4: (Optional) Copy the Tile
+You can deploy multiple copies of the PCF Runtime for Windows tile to create isolation segments for Windows cells. Isolation segments define compartmentalized resource pools for Diego cells that do not share routing, computing, or logging resources, but are managed by the same Cloud Controller.
 
-If you want to create multiple isolation segments for the Windows tile, perform the following steps to copy the **PCF Runtime for Windows** tile with the Replicator tool:
+See the [Replicate the Tile to Create Isolation Segments](#isolation) step below for how to create multiple Windows isolation segments. The [Installing PCF Isolation Segment](../customizing/installing-pcf-is.html) topic explains how to create Linux isolation segments.
+
+##<a id='copy'></a> Step 4: (Optional) Replicate the Tile to Create Isolation Segments
+
+You can use the Replicator tool to copy the **PCF Runtime for Windows** tile and create multiple isolation segments as follows:
 
 1. Download the Replicator tool from the **Pivotal Cloud Foundry Runtime for Windows** section of [Pivotal Network](https://network.pivotal.io/products/p-windows-runtime).
 
@@ -95,10 +99,9 @@ If you want to create multiple isolation segments for the Windows tile, perform 
     </pre>
 
     Replace the values above with the following:
-    * `YOUR-NAME`: Provide a unique name for the new PCF Runtime for Windows tile. The name must be ten characters or less and only contain alphanumeric characters, dashes, underscores, and spaces.
-    * `/PATH/TO/ORIGINAL`: Provide the absolute path to the original PCF Runtime for Windows tile you downloaded from Pivotal Network.
-    * `/PATH/TO/COPY`: Provide the absolute path for the copy of the PCF Runtime for Windows tile that the Replicator tool produces.
+    * `YOUR-NAME`: Provide a unique name for the new PAS for Windows tile. The name must be ten characters or less and only contain alphanumeric characters, dashes, underscores, and spaces.
+    * `/PATH/TO/ORIGINAL`: Provide the absolute path to the original PAS for Windows tile you downloaded from Pivotal Network.
+    * `/PATH/TO/COPY`: Provide the absolute path for the copy of the PAS for Windows tile that the Replicator tool produces.
 
-1. Follow the procedures in this topic using the new `.pivotal` file, starting with [Step 1](#ert).
-
+1. Install and configure the Windows isolation segment, using the new `.pivotal` file and following the procedures in this topic, starting with the **Import a Product** step of [Step 2: Install the Tile](#install).
 
