@@ -7,6 +7,6 @@ owner: Greenhouse
 
 In vSphere, customers must build their own stemcells to use PCF Runtime for Windows in their on-premise deployments.
 
-To build a vSphere stemcell, you start with an ISO of Windows Server 2012R2. Then you install the BOSH dependencies to create a `.tgz` file that can be uploaded to your BOSH Director and used with Cloud Foundry.
+To build a vSphere stemcell, you start with an ISO of Windows Server 2012R2 and install the latest Windows Updates on a virtual machine. Then you install the BOSH dependencies. Finally, you package the VM's disk as a `.tgz` file that can be uploaded to your BOSH Director via the Runtime for Windows in Operations Manager.
 
 Create a stemcell by following the directions in [Creating a vSphere Stemcell by Hand](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/wiki/Creating-a-vSphere-Stemcell-by-Hand).
