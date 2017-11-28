@@ -5,11 +5,43 @@ owner: Greenhouse
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to troubleshoot Windows cells deployed by Pivotal Application Service (PAS) for Windows.
+This topic describes how to troubleshoot Windows Diego cells deployed by Pivotal Application Service (PAS) for Windows.
 
-##<a id='logs'></a> Retrieve Logs
+##<a id='logs'></a> Access Logs
 
-Perform the following steps to retrieve the logs for the Windows cell:
+PCF operators can access log messages from Windows Diego cells in two ways:
+
+* Configure PAS for Windows to [send](#syslog) all Windows cell logs to an external syslog server.
+
+* [Download](#download) archived logs from each Windows cell individually.
+
+Logs may include error messages from the diagnostic tool Hakim, as [described below](#hakim-error).
+
+###<a id='syslog'></a> Send Cell Logs to a Syslog Server
+
+To forward Windows cell log messages to an external syslog server, complete the following steps:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **PAS for Windows** tile.
+
+1. Under the the **Settings** tab, select the **System Logging** pane.
+  <%= image_tag("win-syslog-config.png") %>
+
+1. Under **Enable Syslog for VM logs?**, click **Enable**
+
+1. Under **Address**, enter the IP address of your syslog server.
+
+1. Under **Port**, enter the port of your syslog server. The typical port for a syslog server is `514`.
+  <p class="note"><strong>Note</strong>: The host must be reachable from the PAS network. Ensure your syslog server listens on external interfaces.</p>
+
+1. Under **Protocol**, select the transport protocol to use when forwarding logs.
+
+1. Click **Save**.
+
+###<a id='download'></a> Download Cell Logs
+
+Perform the following steps to retrieve the logs from a Windows cell:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 1. Click the **PAS for Windows** tile.
@@ -23,9 +55,12 @@ Perform the following steps to retrieve the logs for the Windows cell:
 	* `/metron_agent_windows/`
 	* `/rep_windows/`
 
-Hakim is a diagnostic tool that reveals common configuration issues with Windows cells. Because PAS for Windows runs Hakim as a BOSH job, the logs may include Hakim error messages. Refer to the [section](#hakim-error) below for a list of Hakim error messages and their possible solutions.
 
-###<a id='hakim-error'></a> Hakim Error Messages
+###<a id='hakim-error'></a> Hakim Errors and Fixes
+
+Hakim is a diagnostic tool that reveals common configuration issues with Windows cells. Because PAS for Windows runs Hakim as a BOSH job, the logs may include Hakim error messages.
+
+Hakim error messages and their possible solutions include:
 
 **Processes**
 
@@ -100,9 +135,9 @@ This usually indicates interference with DNS resolution on your Windows cell. To
 1. Ensure that **Use the following DNS server addresses** is selected and enter `127.0.0.1` for **Preferred DNS server**.
 1. Click **OK**. 
 
-##<a id='rdp'></a> Connect to the Windows Cell
+##<a id='rdp'></a> Connect to a Windows Cell
 
-Perform the following steps to connect to your Windows cell to run diagnostics:
+Perform the following steps to connect to a Windows cell to run diagnostics:
 
 1. Download and install a Remote Desktop Protocol (RDP) client.
 	* For Mac OS X, download the Microsoft Remote Desktop app from the [Mac App Store](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12).

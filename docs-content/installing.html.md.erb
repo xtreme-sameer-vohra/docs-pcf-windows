@@ -30,7 +30,7 @@ There are two settings in the PAS tile that affect the Windows cells installed b
 
 1. Assign your AZs and networks and click **Save**.
 
-1. Click **VM Options**. 
+1. Click **VM Options**.
 
     <%= image_tag('vm-options.png') %>
 
@@ -48,7 +48,9 @@ There are two settings in the PAS tile that affect the Windows cells installed b
 
     ![The enable KMS text fields: host and port](enable-kms.png)
 
-1. (Optional) If you want your PAS for Windows application workloads to be deployed to an isolation segment, perform the steps in [Assign a Tile to an Isolation Segment](#assign-isolation) below.
+1. (Optional) To deploy your PAS for Windows application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](#assign-isolation) section below.
+
+1. (Optional) To configure Windows cells to send logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
 
 1. Click **Errands**. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
 	
