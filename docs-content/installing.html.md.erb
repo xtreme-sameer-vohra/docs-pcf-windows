@@ -14,11 +14,21 @@ There are two settings in the PAS tile that affect the Windows cells installed b
 
 ##<a id='install'></a> Step 2: Install the Tile
 
-1. Download the product file from the **PAS for Windows** section of [Pivotal Network](https://network.pivotal.io/products/runtime-for-windows).
+1. Download the product file from the **Pivotal Application Service for Windows** page of [Pivotal Network](https://network.pivotal.io/products/pas-windows).
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+1. From the same [Pivotal Network](https://network.pivotal.io/products/pas-windows) page, download the **PAS for Windows File System Injector** tool for your workstation OS, Windows, Linux, or Mac. The Injector tool is an executable binary `winfs-injector` that adds the Windows Server 2016 operating system into the product file, to make it importable by PCF.
 
-1. Click **+** under the uploaded **PAS for Windows** tile to add it to your staging area.
+1. Run `winfs-injector` with the following options, replacing `PAS-WINDOWS-DOWNLOADED.pivotal` with the path to the downloaded PAS for Windows product file and `PAS-WINDOWS.pivotal` with a file path to write the importable product file out to:
+    <pre class="terminal">
+    $ winfs-injector --input-tile PAS-WINDOWS-DOWNLOADED.pivotal \
+    --output-tile PAS-WINDOWS-INJECTED.pivotal
+    </pre>
+
+1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
+
+1. Select the importable `PAS-WINDOWS-INJECTED.pivotal` file on your workstation. **PAS for Windows** appears in the product list under **Import a Product**.
+
+1. Click **+** under the **PAS for Windows** product listing to add it to your staging area.
 
 ##<a id='config'></a> Step 3: Configure and Deploy the Tile
 
