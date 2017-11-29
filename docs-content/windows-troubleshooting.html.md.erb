@@ -109,16 +109,30 @@ Perform the following steps to connect to your Windows cell to run diagnostics:
 	* For Windows, download the Microsoft Remote Desktop app from [Microsoft](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps).
 	* For Linux/UNIX, download a RDP client like [rdesktop](http://www.rdesktop.org/).
 
-1. Follow the steps in the [Log into BOSH](../customizing/trouble-advanced.html#log-in) section of the <em>Advanced Troubleshooting with the BOSH CLI</em> topic to log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
+1. Follow the steps in the [Log into BOSH](../customizing/trouble-advanced.html#log-in) section of the <em>Advanced Troubleshooting with the BOSH CLI</em> topic to log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store. 
 
-1. Retrieve the IP address of your Windows cell using the BOSH CLI. Run the following command, replacing `MY-ENV` with the alias you assigned to your BOSH Director:
-    <pre class="terminal">
-    $ bosh -e MY-ENV -d garden-windows
-    Using environment 'DIRECTOR-IP' as client 'admin'
+1. Create a `runtime-config.yml` file to include the `enable_rdp` addon from the [windows-utilities-release](https://github.com/cloudfoundry-incubator/windows-utilities-release). 
+   <pre><code><span>releases:</span>
+   <span>- name: windows-utilities</span>
+   <span>  version: latest</span>
+   <span></span>
+   <span>addons:</span>
+   <span>- name: enable\_rdp</span>
+   <span>  jobs:</span>
+   <span>  - name: enable\_rdp</span>
+   <span>    release: windows-utilities</span>
+   </code></pre>
 
-    Name               Release(s)       Stemcell(s)    Team(s)  Cloud Config
-    garden-windows     ...              ...            -        latest
-    </pre>
+1. Upload the `runtime-config.yml` using:
+      <pre class="terminal">
+      $ bosh update runtime-config runtime-config.yml
+      </pre>
+
+
+1. Run the following command to retrieve the IP address of your Windows cell:
+      <pre class="terminal">
+      $ bosh vms
+      </pre>
 
 1. Obtain login credentials for your Windows cell. If you chose **Set the password** under **VM Options** > **Manage Administrator Password** when you configured the PCF Runtime for Windows tile, this is the password you entered.  
 If you chose **Use Random Administrator Password** when you configured the tile, follow the steps for your IaaS:
@@ -156,6 +170,8 @@ If you chose **Use Random Administrator Password** when you configured the tile,
 1. Close the **Edit Remote Desktops** window and double-click the newly added connection under **My Desktops** to open a RDP connection to the Windows cell.
 
 1. In the RDP session, you can use the [Consul CLI](#consul) to diagnose problems with your Windows cell.
+
+**Note:** For vSphere, it is also possible to connect to your windows cell using the vCenter console once the Administrator password has been set.
 
 ###<a id='consul'></a> Consul CLI
 
