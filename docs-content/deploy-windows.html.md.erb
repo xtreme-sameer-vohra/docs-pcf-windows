@@ -47,7 +47,7 @@ There are two settings in the Elastic Runtime tile that affect the Windows cells
 
 1. (Optional) If you want your PCF Runtime for Windows application workloads to be deployed to an isolation segment, perform the steps in [Assign a Tile to an Isolation Segment](#assign-isolation) below.
 
-1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./windows-troubleshooting.html#syslog) section.
+1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./windows-troubleshooting.html#syslog) section of the _Troubleshooting Windows Cells_ topic.
 
 1. Click **Errands**. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
 	
@@ -85,7 +85,7 @@ See [Replicate a Tile](#replicate) for how to create multiple copies of the PCF 
 
 See [Assign a Tile to an Isolation Segment](#assign-isolation) for how to associate a PCF Runtime for Windows tile with an isolation segment, so that its cells run in that segment. 
 
-See the the [Create an Isolation Segment](../adminguide/isolation-segments.html#create-an-is) section of the <em>Managing Isolation Segments</em> topic for how to add an isolation segment to the CCDB.
+See the [Create an Isolation Segment](../adminguide/isolation-segments.html#create-an-is) section of the <em>Managing Isolation Segments</em> topic for how to add an isolation segment to the CCDB.
 
 ###<a id='replicate'></a> Replicate a Tile
 
@@ -104,7 +104,7 @@ To make multiple copies of the **PCF Runtime for Windows** tile that you can ass
     </pre>
 
     Replace the values above with the following:
-    * `YOUR-NAME`: Provide a unique name for the new PCF Runtime for Windows tile. The name must be ten characters or less and only contain alphanumeric characters, dashes, underscores, and spaces.
+    * `YOUR-NAME`: Provide a unique name for the new PCF Runtime for Windows tile. The name must be ten characters or less in length and only contain alphanumeric characters, dashes, underscores, and spaces.
     * `/PATH/TO/ORIGINAL`: Provide the absolute path to the original PCF Runtime for Windows tile you downloaded from Pivotal Network.
     * `/PATH/TO/COPY`: Provide the absolute path for the copy of the PCF Runtime for Windows tile that the Replicator tool produces.
 
