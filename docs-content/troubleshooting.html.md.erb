@@ -7,7 +7,15 @@ owner: Greenhouse
 
 This topic describes how to troubleshoot Windows Diego cells deployed by Pivotal Application Service (PAS) for Windows.
 
-##<a id='logs'></a> Access Logs
+##<a id='log-types'></a> Windows Cell Log Types
+
+Windows cells generate two types of logs:
+
+* **BOSH job logs**, such as `rep_windows` and `consul_agent_windows`. These logs stream to the syslog server configured in the PAS tile **System Logging** pane, along with other PCF component logs. The names of these BOSH job logs correspond to the names of the logs emitted by Linux Diego cells.
+
+* **Windows Event logs**. These stream to the syslog server configured in the PAS for Windows **System Logging** pane and are downloadable through Ops Manager, as described [below](#logs).
+
+##<a id='logs'></a> Access Windows Event Logs
 
 PCF operators can access log messages from Windows Diego cells in two ways:
 
