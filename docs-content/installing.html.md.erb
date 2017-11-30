@@ -18,7 +18,7 @@ There are two settings in the PAS tile that affect the Windows cells installed b
 
 1. From the same [Pivotal Network](https://network.pivotal.io/products/pas-windows) page, download the **PAS for Windows File System Injector** tool for your workstation OS, Windows, Linux, or Mac. The Injector tool is an executable binary `winfs-injector` that adds the Windows Server 2016 operating system into the product file.
 
-1. Run `winfs-injector` with the following options, replacing `PAS-WINDOWS-DOWNLOADED.pivotal` with the path to the downloaded PAS for Windows product file and `PAS-WINDOWS.pivotal` with a file path to write the importable product file out to:
+1. Run `winfs-injector` with the following options, replacing `PAS-WINDOWS-DOWNLOADED.pivotal` with the path to the downloaded PAS for Windows product file and `PAS-WINDOWS-INJECTED.pivotal` with a file path to write the importable product file out to:
     <pre class="terminal">
     $ winfs-injector --input-tile PAS-WINDOWS-DOWNLOADED.pivotal \
     --output-tile PAS-WINDOWS-INJECTED.pivotal
