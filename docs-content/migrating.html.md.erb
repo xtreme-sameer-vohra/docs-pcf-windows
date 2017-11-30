@@ -3,33 +3,34 @@ title: Migrating Apps to PAS for Windows
 owner: Windows
 ---
 
-This topic describes the process of migrating apps running on Windows Runtime for PCF or PAS for Windows 2012R2 cells to run on PAS for Windows cells, which run Windows Server 2016.
+This topic describes the process of migrating apps running on PAS for Windows 2012R2 cells to run on PAS for Windows cells, which run Windows Server 2016.
 
 Pivotal recommends you use the blue-green deployment method for high availability. For more information about blue-green deployments, see [Using Blue-Green Deployment to Reduce Downtime and Risk](../devguide/deploy-apps/blue-green.html).
 
 ## <a id="install-tile"></a> Step 1: Install and Deploy PAS for Windows Tile
 
-To install and deploy the **PAS for Windows** tile, follow step 1 and 2 of [Installing and Configuring PAS for Windows](installing.html).
+To install and deploy the **PAS for Windows** tile, follow steps 1 and 2 of [Installing and Configuring PAS for Windows](installing.html).
 
-## <a id="push-app"></a> Step 3: Push App to PAS for Windows Cells
+## <a id="push-app"></a> Step 2: Push App to PAS for Windows Cells
 
 Perform the following steps to deploy an app with the blue-green method:
 
-1. Run `cf login` to log in to the cf CLI.
+1. Run `cf login` to log in to the Cloud Foundry Command Line Interface (cf CLI).
 
 1. Choose your org and space.
 
-1. `cd` to the location of your app.
-<pre class="terminal">$ cd /MY/WINDOWS/APP</pre>
+1. Navigate to the location of your app.
 
-1. Push a "blue" app. Pivotal recommends you append `-blue` to your app name.
+1. Push a "blue" app with `cf push`. Pivotal recommends you append `-blue` to your app name.
 <pre class="terminal">$ cf push APP\_NAME-blue -s windows -b BUILDPACK -n HOSTNAME </pre>
-The push command must include the `-s` flag to specify the stack as `windows`, which instructs PCF to run the app in the Windows cell. 
+  * For **BUILDPACK**, enter your custom buildpack by name or Git URL with an optional branch or tag.
+  * For **HOSTNAME**, enter the subdomain name you are pushing to.
+  * For more command options, see [cf push](http://cli.cloudfoundry.org/en-US/cf/push.html).<div class="note"><strong>Note: </strong> The push command must include the `-s` flag to specify the stack as `windows`, which instructs Pivotal Cloud Foundry (PCF) to run the app in the Windows cell.</div>
 
 1. Push the "green" app with `--no-start` so it creates the instance VMs but does not start the app. Remember to include `-s windows`.
 <pre class="terminal">$ cf push APP\_NAME-green -s windows -b BUILDPACK -n HOSTNAME --no-start </pre>
 
-1. Switch the router so all incoming requests go to the Green app _and_ the Blue app using the [cf map-route](http://cli.cloudfoundry.org/en-US/cf/map-route.html) command.
+1. Switch the router so all incoming requests go to the "green" app and the "blue" app using the [cf map-route](http://cli.cloudfoundry.org/en-US/cf/map-route.html) command. The command requires you enter your domain name after the app name. For example, `example.com`.
 <pre class="terminal">
 	$ cf map-route APP\_NAME-green DOMAIN -n HOSTNAME 
 </pre>
@@ -39,17 +40,17 @@ The push command must include the `-s` flag to specify the stack as `windows`, w
 
 1. Run `cf apps` to see that your blue and green apps are running. If you experience a problem, see [Troubleshooting Application Deployment and Health](../devguide/deploy-apps/troubleshoot-app-health.html).
 
-## <a id="delete-app"></a> Step 4: Delete App from Windows 2012 Server Cells
+## <a id="delete-app"></a> Step 3: Delete App from Windows 2012 Server Cells
 
 To delete the old app, run the [cf delete](http://cli.cloudfoundry.org/en-US/cf/delete.html) command. To also delete any mapped routes, run the command with the `-r` flag.<pre class="terminal">$ cf delete OLD\_APP\_NAME -r</pre>
 
 
-## <a id="uninstall-old-tile"></a> Step 5: (Optional) Uninstall Old Tile
+## <a id="uninstall-old-tile"></a> Step 4: (Optional) Uninstall Old Tile
 
-Once you have migrated all of your apps and you are no longer using the **Windows Runtime** or  **Windows 2012R2** tile, perform the following steps:
+Once you have migrated all of your apps and you are no longer using the **Windows 2012R2** tile, perform the following steps:
 
-1. From the Installation Dashboard, click the trash icon on the tile to remove that product. In the **Delete Product** dialog box that appears, click **Confirm**.
+1. From the **Installation Dashboard**, click the trash icon on the tile to remove that product. In the **Delete Product** dialog box that appears, click **Confirm**.
 
 1. In the **Pending Changes** view, click **Apply Changes**.
 
-    After you delete a product, the product tile is removed from the installation and the Installation Dashboard. However, the product appears in the **Available Products** view.
+    After you delete a product, the product tile is removed from the installation and the **Installation Dashboard**. However, the product appears in the **Available Products** view.
