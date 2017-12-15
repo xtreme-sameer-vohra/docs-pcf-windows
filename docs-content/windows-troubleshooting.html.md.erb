@@ -85,7 +85,7 @@ Perform the following steps to connect to your Windows cell to run diagnostics:
    <span>    - os: windows2012R2</span>
    </code></pre>
 
-   Be certain that the `windows-utlities` release has been uploaded by checking the release version:
+   Be certain that the `windows-utilities` release has been uploaded by checking the release version:
       <pre class="terminal"> $ bosh releases </pre>If you discover that `windows-utilities` is missing, follow [these instructions](https://bosh.io/docs/create-release.html#dev-release).
 
 Next, upload the runtime config. **Note:** The runtime config applies to all VMS managed by BOSH, and therefore will enable RDP on all Windows VMs.
