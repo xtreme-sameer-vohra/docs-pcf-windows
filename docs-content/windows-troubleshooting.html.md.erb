@@ -69,11 +69,32 @@ Perform the following steps to connect to your Windows cell to run diagnostics:
 	* For Mac OS X, download the Microsoft Remote Desktop app from the [Mac App Store](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12).
 	* For Windows, download the Microsoft Remote Desktop app from [Microsoft](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps).
 	* For Linux/UNIX, download an RDP client like [rdesktop](http://www.rdesktop.org/).
-
-1. Select the **Enable Remote Desktop Protocol** checkbox under `VM Options` in the tile.
-   <%= image_tag('vm-options.png') %>
   
+1. You will need to add the [windows-utilities-release](https://github.com/cloudfoundry-incubator/windows-utilities-release) (version 0.4.0 and later) BOSH Add-on. Add the `enable_rdp` job to your runtime config. You can access your runtime config with `bosh runtime-config`. Here is an example runtime config that utilizes the `enable_rdp` addon:
+   <pre><code><span>releases:</span>
+   <span>- name: windows-utilities</span>
+   <span>  version: \<Release Version\></span>
+   <span></span>
+   <span>addons:</span>
+   <span>- name: enable\_rdp</span>
+   <span>  jobs:</span>
+   <span>  - name: enable\_rdp</span>
+   <span>    release: windows-utilities</span>
+   <span>  include:</span>
+   <span>    stemcell:</span>
+   <span>    - os: windows2012R2</span>
+   </code></pre>
+
+   Be certain that the `windows-utilities` release has been uploaded by checking the release version:
+      <pre class="terminal"> $ bosh releases </pre>If you discover that `windows-utilities` is missing, follow [these instructions](https://bosh.io/docs/create-release.html#dev-release).
+
+Next, upload the runtime config. **Note:** The runtime config applies to all VMS managed by BOSH, and therefore will enable RDP on all Windows VMs.
+      <pre class="terminal"> $ bosh update runtime-config &lt;runtime config filename&gt; </pre>
+
+1. Click `Apply Changes` to deploy the runtime config changes.
+
 1. Obtain the IP address of the Windows cell you would like to connect to from the `Status` tab of the tile.
+
 
 ####Obtain login credentials for your Windows cell.
    - AWS or vSphere: if you chose **Set the password** under **VM Options** > **Manage Administrator Password** when you configured the PCF Runtime for Windows tile, the username is `Administrator` and the password is the one you entered. If you did not set the password, it is not possible to obtain the current Administrator password through the IaaS, because the BOSH agent randomized the password.
